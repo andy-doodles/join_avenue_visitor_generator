@@ -2,11 +2,17 @@
 
 # http://localhost/join_avenue_visitor_generator/visitor_generator.php
 
-$visitorPath = "C:/xampp/htdocs/join_avenue_visitor_generator/Base Visitors/VISITOR _ Jane.pjv";
+$inputPath = "C:/xampp/htdocs/join_avenue_visitor_generator/Base Visitors/VISITOR _ Jane.pjv";
+$outputPath = "C:/xampp/htdocs/join_avenue_visitor_generator/Output Visitors/Jane.pjv";
 
-# Open visitor file and get file size
-$visitorFile = fopen($visitorPath, "r+b");
-$visitorSize = filesize($visitorPath);
+# Open visitor file, copy it, close original
+$inputVisitorFile = fopen($inputPath, "r+b");
+$copyFile = copy($inputPath, $outputPath);
+fclose($inputVisitorFile);
+
+# Open copy, get its file size
+$outputVisitorFile = fopen($outputPath, "r+b");
+$visitorSize = filesize($outputPath);
 
 # Creates a random, 6-character name + 1 terminator. 16-bit, little endian
 function randomName() {
@@ -29,9 +35,9 @@ function writeName($file) {
     fwrite($file, $name);
 }
 
-writeName($visitorFile);
+writeName($outputVisitorFile);
 
-fclose($visitorFile);
+fclose($outputVisitorFile);
 
 # http://localhost/join_avenue_visitor_generator/visitor_generator.php
 
