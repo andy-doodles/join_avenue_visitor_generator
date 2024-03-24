@@ -2,8 +2,10 @@
 
 # http://localhost/join_avenue_visitor_generator/visitor_generator.php
 
+$sourceDirectory = "C:/xampp/htdocs/join_avenue_visitor_generator/Base Visitors/";
+
 # Create a random, 6-character name for the visitor and its corresponding file
-function assignRandomFileName() { 
+function assignRandomFileName() {
     $characterSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     $randomName = "";
     for ($i = 0; $i < 6; $i++) {
@@ -31,7 +33,18 @@ function writeVisitorNameToFile($file) {
     fwrite($file, $visitorName);
 }
 
-$inputPath = "C:/xampp/htdocs/join_avenue_visitor_generator/Base Visitors/VISITOR _ Jane.pjv";
+# Select a random file from the source directory
+function chooseRandomFile($directory) {
+    $directoryArray = scandir($directory);
+    # Exclude unwanted directory elements and files
+    $directoryArray = array_diff($directoryArray, [".", "..", "desktop.ini"]);
+    # Randomize the order or array elements 
+    shuffle($directoryArray);
+
+    return $directoryArray[0];
+}
+
+$inputPath = $sourceDirectory . chooseRandomFile($sourceDirectory);
 $outputPath = "C:/xampp/htdocs/join_avenue_visitor_generator/Output Visitors/" . $newFileName . ".pjv";
 
 # Open visitor file, copy it, close original
