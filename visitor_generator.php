@@ -24,9 +24,6 @@ function assignVisitorName($randomString) {
     return $twoByteName;
 }
 
-# Create random name for the visitor and corresponding output file
-$newFileName = assignRandomFileName();
-
 function writeVisitorNameToFile($file) {
     global $newFileName;
     $visitorName = assignVisitorName($newFileName);
@@ -44,19 +41,23 @@ function chooseRandomFile($directory) {
     return $directoryArray[0];
 }
 
-$inputPath = $sourceDirectory . chooseRandomFile($sourceDirectory);
-$outputPath = "C:/xampp/htdocs/join_avenue_visitor_generator/Output Visitors/" . $newFileName . ".pjv";
+for ($x = 1; $x <= 8; $x++) {
+    # Create random name for the visitor and corresponding output file
+    $newFileName = assignRandomFileName();
+    
+    $inputPath = $sourceDirectory . chooseRandomFile($sourceDirectory);
+    $outputPath = "C:/xampp/htdocs/join_avenue_visitor_generator/Output Visitors/" . $newFileName . ".pjv";
 
-# Open visitor file, copy it, close original
-$inputVisitorFile = fopen($inputPath, "r+b");
-$copyFile = copy($inputPath, $outputPath);
-fclose($inputVisitorFile);
+    # Open visitor file, copy it, close original
+    $inputVisitorFile = fopen($inputPath, "r+b");
+    $copyFile = copy($inputPath, $outputPath);
+    fclose($inputVisitorFile);
 
-$outputVisitorFile = fopen($outputPath, "r+b");
-
-writeVisitorNameToFile($outputVisitorFile);
-
-fclose($outputVisitorFile);
+    # Modify visitor's name
+    $outputVisitorFile = fopen($outputPath, "r+b");
+    writeVisitorNameToFile($outputVisitorFile);
+    fclose($outputVisitorFile);
+}
 
 # http://localhost/join_avenue_visitor_generator/visitor_generator.php
 
