@@ -54,7 +54,7 @@ for ($x = 1; $x <= 8; $x++) {
     fclose($inputVisitorFile);
 
     # Modify visitor's name
-    $outputVisitorFile = fopen($outputPath, "r+b");
+    $outputVisitorFile = fopen($outputPath, "w+b");
     writeVisitorNameToFile($outputVisitorFile);
     fclose($outputVisitorFile);
 }
