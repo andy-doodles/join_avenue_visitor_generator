@@ -52,9 +52,7 @@ $inputVisitorFile = fopen($inputPath, "r+b");
 $copyFile = copy($inputPath, $outputPath);
 fclose($inputVisitorFile);
 
-# Open copy, get its file size
 $outputVisitorFile = fopen($outputPath, "r+b");
-$visitorSize = filesize($outputPath);
 
 writeVisitorNameToFile($outputVisitorFile);
 
