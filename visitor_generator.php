@@ -11,7 +11,7 @@ function chooseRandomFile($directory) {
     $directoryArray = scandir($directory);
     # Exclude unwanted directory elements and files
     $directoryArray = array_diff($directoryArray, [".", "..", "desktop.ini"]);
-    # Randomize the order or array elements 
+    # Randomize the order of array elements 
     shuffle($directoryArray);
     return $directoryArray[0];
 }
@@ -27,8 +27,8 @@ function generateFileName() {
     return $fileName;
 }
 
-# Encode visitor name string created with `generateFileName()`
-# Append encoded terminator
+/* Encode visitor name string created with `generateFileName()`
+Append encoded terminator */
 function assignVisitorName($oneByteVisitorName) {
     $terminator = pack("v", 0xFFFF);
     $twoByteName = mb_convert_encoding($oneByteVisitorName, "UTF-16LE");
