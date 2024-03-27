@@ -16,13 +16,36 @@ function chooseRandomFile($directory) {
     return $directoryArray[0];
 }
 
-# Generate a 6-character name for the visitor and its corresponding file
-function generateFileName() {
+function generateVisitorGender() {
+    $genderArray = ["man", "woman"];
+    shuffle($genderArray);
+
+    if ($genderArray[0] == "man") {
+        $visitorGender = "man or boy";
+        return $visitorGender;
+    }
+    else {
+        $visitorGender = "woman or girl";
+        return $visitorGender;
+    }
+}
+
+/* Generate a 6-character name for the visitor and its corresponding file
+Gender of name depends on gender created with `generateVisitorGender()` */
+function generateFileName($visitorGender) {
     global $faker;
-    $fileName = ""; 
-    do {
-        $fileName = $faker->firstName;
-    } while (strlen($fileName) != 6);
+    $fileName = "";
+
+    if ($visitorGender == "man or boy") {
+        do {
+        $fileName = $faker->firstNameMale;
+        } while (strlen($fileName) != 6);
+    }
+    else {
+        do {
+            $fileName = $faker->firstNameFemale;
+        } while (strlen($fileName) != 6);
+    }
 
     return $fileName;
 }
@@ -43,10 +66,30 @@ function writeVisitorNameToFile($file) {
     fwrite($file, $visitorName);
 }
 
+# Encode visitor gender created with `generateVisitorGender()`
+function assignVisitorGender($gender) {
+    if ($gender == "man or boy") {
+        $visitorGender = pack("v", 0x00);
+        return $visitorGender;
+    }
+    else {
+        $visitorGender = pack("v", 0x10);
+        return $visitorGender;
+    }
+}
+
+# Inject encoded visitor name to file
+function writeVisitorGenderToFile($file, $gender) {
+    $visitorGender = assignVisitorGender($gender);
+    fseek($file, 0x22);
+    fwrite($file, $visitorGender);
+    rewind($file);
+}
+
 for ($x = 1; $x <= 8; $x++) {
-    # Generate a 6-character name for the visitor and its corresponding file
-    $newFileName = generateFileName();
-    
+    $visitorGender = generateVisitorGender();
+    $newFileName = generateFileName($visitorGender);
+
     # Choose a random file from source directory
     $inputPath = $sourceDirectory . chooseRandomFile($sourceDirectory);
     # Path to new file
@@ -59,6 +102,7 @@ for ($x = 1; $x <= 8; $x++) {
 
     # Modify visitor's name
     $outputVisitorFile = fopen($outputPath, "r+b");
+    writeVisitorGenderToFile($outputVisitorFile, $visitorGender);
     writeVisitorNameToFile($outputVisitorFile);
     fclose($outputVisitorFile);
 }
