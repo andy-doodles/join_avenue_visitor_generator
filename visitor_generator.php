@@ -3,6 +3,7 @@
 # http://localhost/join_avenue_visitor_generator/visitor_generator.php
 
 require_once "C:/xampp/htdocs/join_avenue_visitor_generator/libraries/vendor/autoload.php";
+include "sprite_arrays.php";
 $faker = Faker\Factory::create();
 $sourceDirectory = "C:/xampp/htdocs/join_avenue_visitor_generator/Base Visitors/";
 
@@ -11,7 +12,7 @@ function chooseRandomFile($directory) {
     $directoryArray = scandir($directory);
     # Exclude unwanted directory elements and files
     $directoryArray = array_diff($directoryArray, [".", "..", "desktop.ini"]);
-    # Randomize the order of array elements 
+    # Randomize the order of array elements
     shuffle($directoryArray);
     return $directoryArray[0];
 }
@@ -86,6 +87,35 @@ function writeVisitorGenderToFile($file, $gender) {
     rewind($file);
 }
 
+# Choose a random sprite from a pool
+function chooseSprite($spriteArray) {
+    $keys = array_keys($spriteArray);
+    $randomKey = $keys[array_rand($keys)];
+    $sprite = $spriteArray[$randomKey];
+    return $sprite;
+}
+
+# Assign a sprite that corresponds with the name's gender
+function writeSpriteToFile($file, $gender) {
+    global $maleSprites;
+    global $femaleSprites;
+
+    if ($gender == "man or boy") {
+        $maleSprite = chooseSprite($maleSprites);
+        $hexValue = pack("v", $maleSprite[1]);
+        fseek($file, 0x2A);
+        fwrite($file, $hexValue);
+        rewind($file);
+    }
+    else {
+        $femaleSprite = chooseSprite($femaleSprites);
+        $hexValue = pack("v", $femaleSprite[1]);
+        fseek($file, 0x2A);
+        fwrite($file, $hexValue);
+        rewind($file);
+    }
+}
+
 function getVisitorData($name, $gender) {
     $visitorArray = [
         "name" => $name,
@@ -111,6 +141,7 @@ for ($x = 1; $x <= 8; $x++) {
     # Modify visitor's name
     $outputVisitorFile = fopen($outputPath, "r+b");
     writeVisitorGenderToFile($outputVisitorFile, $visitorGender);
+    writeSpriteToFile($outputVisitorFile, $visitorGender);
     writeVisitorNameToFile($outputVisitorFile);
 
     echo "<pre>";
