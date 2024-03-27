@@ -86,6 +86,14 @@ function writeVisitorGenderToFile($file, $gender) {
     rewind($file);
 }
 
+function getVisitorData($name, $gender) {
+    $visitorArray = [
+        "name" => $name,
+        "gender" => $gender
+    ];
+    return $visitorArray;
+}
+
 for ($x = 1; $x <= 8; $x++) {
     $visitorGender = generateVisitorGender();
     $newFileName = generateFileName($visitorGender);
@@ -104,6 +112,11 @@ for ($x = 1; $x <= 8; $x++) {
     $outputVisitorFile = fopen($outputPath, "r+b");
     writeVisitorGenderToFile($outputVisitorFile, $visitorGender);
     writeVisitorNameToFile($outputVisitorFile);
+
+    echo "<pre>";
+    print_r(getVisitorData($newFileName, $visitorGender));
+    echo "<pre>";
+
     fclose($outputVisitorFile);
 }
 
