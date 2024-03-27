@@ -1,5 +1,11 @@
 <?php
 
+function writeDataToFile($file, $offset, $data) {
+    fseek($file, $offset);
+    fwrite($file, $data);
+    rewind($file);
+}
+
 # Select a random file from the source directory
 function chooseRandomFile($directory) {
     $directoryArray = scandir($directory);
@@ -34,15 +40,13 @@ function generateFileName($visitorGender) {
 function writeVisitorNameToFile($file) {
     global $newFileName;
     $visitorName = assignVisitorName($newFileName);
-    fwrite($file, $visitorName);
+    writeDataToFile($file, 0x00, $visitorName);
 }
 
 # Inject encoded visitor name to file
 function writeVisitorGenderToFile($file, $gender) {
     $visitorGender = assignVisitorGender($gender);
-    fseek($file, 0x22);
-    fwrite($file, $visitorGender);
-    rewind($file);
+    writeDataToFile($file, 0x22, $visitorGender);
 }
 
 # Assign a sprite that corresponds with the name's gender
@@ -52,17 +56,13 @@ function writeVisitorSpriteToFile($file, $gender) {
 
     if ($gender == "man or boy") {
         $maleSprite = chooseSprite($maleSprites);
-        $hexValue = pack("v", $maleSprite[1]);
-        fseek($file, 0x2A);
-        fwrite($file, $hexValue);
-        rewind($file);
+        $hexValue = pack("v", $maleSprite[0]);
+        writeDataToFile($file, 0x2A, $hexValue);
     }
     else {
         $femaleSprite = chooseSprite($femaleSprites);
-        $hexValue = pack("v", $femaleSprite[1]);
-        fseek($file, 0x2A);
-        fwrite($file, $hexValue);
-        rewind($file);
+        $hexValue = pack("v", $femaleSprite[0]);
+        writeDataToFile($file, 0x2A, $hexValue);
     }
 }
 
