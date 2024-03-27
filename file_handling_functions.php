@@ -46,7 +46,7 @@ function writeVisitorGenderToFile($file, $gender) {
 }
 
 # Assign a sprite that corresponds with the name's gender
-function writeSpriteToFile($file, $gender) {
+function writeVisitorSpriteToFile($file, $gender) {
     global $maleSprites;
     global $femaleSprites;
 
