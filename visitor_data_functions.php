@@ -43,10 +43,13 @@ function chooseSprite($spriteArray) {
     return $sprite;
 }
 
-function getVisitorData($name, $gender) {
+function getVisitorData($name, $gender, $spriteData) {
     $visitorArray = [
         "name" => $name,
-        "gender" => $gender
+        "gender" => $gender,
+        "hex value for sprite" => [dechex($spriteData[0]),
+        "decimal value for sprite" => $spriteData[0]],
+        "description" => $spriteData[1]
     ];
     return $visitorArray;
 }
