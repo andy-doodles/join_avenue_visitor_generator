@@ -56,13 +56,15 @@ function writeVisitorSpriteToFile($file, $gender) {
 
     if ($gender == "man or boy") {
         $maleSprite = chooseSprite($maleSprites);
-        $hexValue = pack("v", $maleSprite[0]);
-        writeDataToFile($file, 0x2A, $hexValue);
+        $spriteHexValue = pack("v", $maleSprite[0]);
+        writeDataToFile($file, 0x2A, $spriteHexValue);
+        return $maleSprite;
     }
     else {
         $femaleSprite = chooseSprite($femaleSprites);
-        $hexValue = pack("v", $femaleSprite[0]);
-        writeDataToFile($file, 0x2A, $hexValue);
+        $spriteHexValue = pack("v", $femaleSprite[0]);
+        writeDataToFile($file, 0x2A, $spriteHexValue);
+        return $femaleSprite;
     }
 }
 
