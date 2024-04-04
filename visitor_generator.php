@@ -26,11 +26,11 @@ for ($x = 1; $x <= 8; $x++) {
     # Modify visitor's name
     $outputVisitorFile = fopen($outputPath, "r+b");
     writeVisitorGenderToFile($outputVisitorFile, $visitorGender);
-    writeVisitorSpriteToFile($outputVisitorFile, $visitorGender);
+    $spriteData = writeVisitorSpriteToFile($outputVisitorFile, $visitorGender);
     writeVisitorNameToFile($outputVisitorFile);
 
     echo "<pre>";
-    print_r(getVisitorData($newFileName, $visitorGender));
+    print_r(getVisitorData($newFileName, $visitorGender, $spriteData));
     echo "<pre>";
 
     fclose($outputVisitorFile);
