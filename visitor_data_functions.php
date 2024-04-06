@@ -1,5 +1,7 @@
 <?php
 
+include_once "visitor_generator.php";
+
 function generateVisitorGender() {
     $genderArray = ["man", "woman"];
     shuffle($genderArray);
@@ -43,6 +45,16 @@ function chooseSprite($spriteArray) {
     return $sprite;
 }
 
+# Choose a random country from the available pool
+function chooseCountry() {
+    global $faker;
+    $visitorCountry = $faker->numberBetween(1, 232);
+    $visitorCountryHex = pack("v", $visitorCountry);
+    $visitorSubRegion = pack("v", 0x00);
+    $visitorLocationArray = [$visitorCountryHex, $visitorSubRegion];
+    return $visitorLocationArray;
+}
+
 function getVisitorData($name, $gender, $spriteData) {
     $visitorArray = [
         "name" => $name,
@@ -53,5 +65,7 @@ function getVisitorData($name, $gender, $spriteData) {
     ];
     return $visitorArray;
 }
+
+# http://localhost/join_avenue_visitor_generator/visitor_data_functions.php
 
 ?>
