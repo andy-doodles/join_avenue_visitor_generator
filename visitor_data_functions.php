@@ -80,13 +80,19 @@ function chooseCountry() {
     return $countryArray;
 }
 
-function getVisitorData($name, $gender, $spriteData) {
+function getVisitorData($name, $gender, $spriteData, $country, $countryIndexDec,
+    $countryIndexHex, $subRegion, $subRegionIndexDec,
+    $subRegionIndexHex) {
+    $hexSpriteValue = dechex($spriteData[0]);
+    $decSpriteValue = $spriteData[0];
+    $spriteDescription = $spriteData[1];
     $visitorArray = [
         "name" => $name,
         "gender" => $gender,
-        "hex value for sprite" => [dechex($spriteData[0]),
-        "decimal value for sprite" => $spriteData[0]],
-        "description" => $spriteData[1]
+        "Country" => "$country (Dec: $countryIndexDec, Hex: $countryIndexHex)",
+        "Subregion" => "$subRegion (Dec: $subRegionIndexDec, Hex: $subRegionIndexHex)",
+        "Sprite description" => $spriteDescription,
+        "Sprite value" => "Dec: $decSpriteValue, Hex: $hexSpriteValue",
     ];
     return $visitorArray;
 }
