@@ -53,7 +53,7 @@ function chooseCountry() {
     global $countryList;
     # Choose a random country from the JSON file
     $visitorCountry = $countryList["countries"][array_rand($countryList["countries"])];
-    # Get the country's index, name, and type
+    # Get the country's index, and name
     $countryIndexDec = $visitorCountry["index"];
     $countryIndexHex = dechex($visitorCountry["index"]);
     $countryName = $visitorCountry["name"];

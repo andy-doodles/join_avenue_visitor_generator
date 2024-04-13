@@ -10,6 +10,7 @@ $faker = Faker\Factory::create();
 $sourceDirectory = "C:/xampp/htdocs/join_avenue_visitor_generator/Base Visitors/";
 
 for ($x = 1; $x <= 8; $x++) {
+    # Get visitor gender, country info, and file name
     $visitorGender = generateVisitorGender();
     [$countryName, $countryIndexDec, $countryIndexHex, $subRegionName,
         $subRegionIndexDec, $subRegionIndexHex] = chooseCountry();
@@ -25,13 +26,14 @@ for ($x = 1; $x <= 8; $x++) {
     $copyFile = copy($inputPath, $outputPath);
     fclose($inputVisitorFile);
 
-    # Modify visitor's name
+    # Modify visitor's name, gender, and country
     $outputVisitorFile = fopen($outputPath, "r+b");
     writeVisitorGenderToFile($outputVisitorFile, $visitorGender);
     $spriteData = writeVisitorSpriteToFile($outputVisitorFile, $visitorGender);
     writeVisitorCountryToFile($outputVisitorFile, $countryIndexDec, $subRegionIndexDec);
     writeVisitorNameToFile($outputVisitorFile);
 
+    # Output visitor data for verification and debugging
     echo "<pre>";
     print_r(getVisitorData($newFileName, $visitorGender, $spriteData, $countryName,
         $countryIndexDec, $countryIndexHex, $subRegionName,
