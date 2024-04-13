@@ -91,8 +91,7 @@ function getVisitorData($name, $gender, $spriteData, $country, $countryIndexDec,
         "gender" => $gender,
         "Country" => "$country (Dec: $countryIndexDec, Hex: $countryIndexHex)",
         "Subregion" => "$subRegion (Dec: $subRegionIndexDec, Hex: $subRegionIndexHex)",
-        "Sprite description" => $spriteDescription,
-        "Sprite value" => "Dec: $decSpriteValue, Hex: $hexSpriteValue",
+        "Sprite description" => "$spriteDescription (Dec: $decSpriteValue, Hex: $hexSpriteValue)"
     ];
     return $visitorArray;
 }
