@@ -11,7 +11,8 @@ $sourceDirectory = "C:/xampp/htdocs/join_avenue_visitor_generator/Base Visitors/
 
 for ($x = 1; $x <= 8; $x++) {
     $visitorGender = generateVisitorGender();
-    [$visitorCountry, $visitorSubRegion] = chooseCountry();
+    [$countryName, $countryIndexDec, $countryIndexHex, $subRegionName,
+        $subRegionIndexDec, $subRegionIndexHex] = chooseCountry();
     $newFileName = generateFileName($visitorGender);
 
     # Choose a random file from source directory
@@ -28,11 +29,13 @@ for ($x = 1; $x <= 8; $x++) {
     $outputVisitorFile = fopen($outputPath, "r+b");
     writeVisitorGenderToFile($outputVisitorFile, $visitorGender);
     $spriteData = writeVisitorSpriteToFile($outputVisitorFile, $visitorGender);
-    writeVisitorCountryToFile($outputVisitorFile, $visitorCountry, $visitorSubRegion);
+    writeVisitorCountryToFile($outputVisitorFile, $countryIndexDec, $subRegionIndexDec);
     writeVisitorNameToFile($outputVisitorFile);
 
     echo "<pre>";
-    print_r(getVisitorData($newFileName, $visitorGender, $spriteData));
+    print_r(getVisitorData($newFileName, $visitorGender, $spriteData, $countryName,
+        $countryIndexDec, $countryIndexHex, $subRegionName,
+        $subRegionIndexDec, $subRegionIndexHex));
     echo "<pre>";
 
     fclose($outputVisitorFile);

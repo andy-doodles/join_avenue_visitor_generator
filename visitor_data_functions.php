@@ -1,6 +1,9 @@
 <?php
 
 include_once "visitor_generator.php";
+include_once "json_country_list.php";
+
+$countryList = json_decode($jsonCountryList, true);
 
 function generateVisitorGender() {
     $genderArray = ["man", "woman"];
@@ -47,12 +50,34 @@ function chooseSprite($spriteArray) {
 
 # Choose a random country from the available pool
 function chooseCountry() {
-    global $faker;
-    $visitorCountry = $faker->numberBetween(1, 232);
-    $visitorCountryHex = pack("v", $visitorCountry);
-    $visitorSubRegion = pack("v", 0x00);
-    $visitorLocationArray = [$visitorCountryHex, $visitorSubRegion];
-    return $visitorLocationArray;
+    global $countryList;
+    # Choose a random country from the JSON file
+    $visitorCountry = $countryList["countries"][array_rand($countryList["countries"])];
+    # Get the country's index, name, and type
+    $countryIndexDec = $visitorCountry["index"];
+    $countryIndexHex = dechex($visitorCountry["index"]);
+    $countryName = $visitorCountry["name"];
+    # Get the country's subregions or empty array if no subregions exist
+    $countrySubRegions = $visitorCountry["subregions"];
+
+    if (!empty($countrySubRegions)) {
+        # Randomly pick a subregion
+        $visitorSubRegion = $countrySubRegions[array_rand($countrySubRegions)];
+        # Get the subregion's index and name
+        $subRegionIndexDec = $visitorSubRegion["index"];
+        $subRegionIndexHex = dechex($visitorSubRegion["index"]);
+        $subRegionName = $visitorSubRegion["name"];
+    } else {
+        # Nullify subregion
+        $subRegionIndexHex = 0x00;
+        $subRegionIndexDec = 0;
+        $visitorSubRegion = "None";
+        $subRegionName = "None";
+    }
+
+    $countryArray = [$countryName, $countryIndexDec, $countryIndexHex,
+        $subRegionName, $subRegionIndexDec, $subRegionIndexHex,];
+    return $countryArray;
 }
 
 function getVisitorData($name, $gender, $spriteData) {
@@ -65,7 +90,5 @@ function getVisitorData($name, $gender, $spriteData) {
     ];
     return $visitorArray;
 }
-
-# http://localhost/join_avenue_visitor_generator/visitor_data_functions.php
 
 ?>

@@ -73,6 +73,8 @@ Visitor country at offset 0x0E
 Visitor subregion at offset 0x0F
 */
 function writeVisitorCountryToFile($file, $country, $subRegion) {
+    $country = chr($country);
+    $subRegion = chr($subRegion);
     writeDataToFile($file, 0x0E, $country);
     writeDataToFile($file, 0x0F, $subRegion);
 }
