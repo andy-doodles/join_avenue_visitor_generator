@@ -1,5 +1,13 @@
 {
     "require": {
         "fakerphp/faker": "^1.23"
+    },
+    "require-dev": {
+        "pestphp/pest": "^2.34"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
     }
 }
