@@ -10,11 +10,14 @@ $faker = Faker\Factory::create();
 $sourceDirectory = "C:/xampp/htdocs/join_avenue_visitor_generator/Base Visitors/";
 
 for ($x = 1; $x <= 8; $x++) {
-    # Get visitor gender, country info, and file name
+    /* Get visitor gender, country info, file name, and greetings
+    */
     $visitorGender = generateVisitorGender();
     [$countryName, $countryIndexDec, $countryIndexHex, $subRegionName,
         $subRegionIndexDec, $subRegionIndexHex] = chooseCountry();
     $newFileName = generateFileName($visitorGender);
+    [$unencodedGreeting, $encodedGreeting] = 
+        generateEnglishGreeting($greetingsListEnglish, $stringTerminator, $nullCharacter);
 
     # Choose a random file from source directory
     $inputPath = $sourceDirectory . chooseRandomFile($sourceDirectory);
@@ -26,18 +29,19 @@ for ($x = 1; $x <= 8; $x++) {
     $copyFile = copy($inputPath, $outputPath);
     fclose($inputVisitorFile);
 
-    # Modify visitor's name, gender, and country
+    # Write visitor's name, gender, country, and greeting to file
     $outputVisitorFile = fopen($outputPath, "r+b");
     writeVisitorGenderToFile($outputVisitorFile, $visitorGender);
     $spriteData = writeVisitorSpriteToFile($outputVisitorFile, $visitorGender);
     writeVisitorCountryToFile($outputVisitorFile, $countryIndexDec, $subRegionIndexDec);
     writeVisitorNameToFile($outputVisitorFile);
+    writeVisitorGreetingToFile($outputVisitorFile, $encodedGreeting);
 
     # Output visitor data for verification and debugging
     echo "<pre>";
     print_r(getVisitorData($newFileName, $visitorGender, $spriteData, $countryName,
         $countryIndexDec, $countryIndexHex, $subRegionName,
-        $subRegionIndexDec, $subRegionIndexHex));
+        $subRegionIndexDec, $subRegionIndexHex, $unencodedGreeting));
     echo "<pre>";
 
     fclose($outputVisitorFile);

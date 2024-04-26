@@ -1,9 +1,18 @@
 <?php
 
 include_once "visitor_generator.php";
-include_once "json_country_list.php";
 
+# Imported JSON files
+$jsonCountryList = file_get_contents("countries.json");
+$jsonGreetingsListEnglish = file_get_contents("greetings_english.json");
+# JSON files decoded into arrays 
 $countryList = json_decode($jsonCountryList, true);
+$greetingsListEnglish = json_decode($jsonGreetingsListEnglish, true);
+
+# Encoded character that signals the end of a string in .pjv binary files
+$stringTerminator = pack("v", 0xFFFF);
+# Encoded null character
+$nullCharacter = pack("v", 0x0000);
 
 function generateVisitorGender() {
     $genderArray = ["man", "woman"];
@@ -80,9 +89,35 @@ function chooseCountry() {
     return $countryArray;
 }
 
+/* Chooses random greeting and encodes it (16-bit, little endian)
+Retains unencoded greeting for output
+Greetings are up to 7-character long + terminator
+If greeting length between 1 and 6 inclusive, greeting structure should be:
+(greeting string) + (terminator) + (enough null characters to make greeting length = 8) */
+function generateEnglishGreeting($greetingsArray, $terminator, $nullCharacter) {
+    $randomIndex = array_rand($greetingsArray);
+    $unencodedGreeting = $greetingsArray[$randomIndex];
+    $greetingLength = strlen($unencodedGreeting);
+
+    if ($greetingLength >= 1 and $greetingLength <= 6) {
+        $bufferLength = 7 - $greetingLength;
+        $encodedGreeting = mb_convert_encoding($unencodedGreeting, "UTF-16LE");
+        $encodedGreeting .= $terminator;
+        # Adds enough null characters to make greeting length = 8
+        for ($i = 0; $i < $bufferLength; $i++) {
+            $encodedGreeting .= $nullCharacter;
+        }
+    } elseif ($greetingLength == 7) {
+        $encodedGreeting = mb_convert_encoding($unencodedGreeting, "UTF-16LE");
+        $encodedGreeting .= $terminator;
+    }
+
+    return [$unencodedGreeting, $encodedGreeting];
+}
+
 function getVisitorData($name, $gender, $spriteData, $country, $countryIndexDec,
     $countryIndexHex, $subRegion, $subRegionIndexDec,
-    $subRegionIndexHex) {
+    $subRegionIndexHex, $greeting) {
     $hexSpriteValue = dechex($spriteData[0]);
     $decSpriteValue = $spriteData[0];
     $spriteDescription = $spriteData[1];
@@ -91,7 +126,8 @@ function getVisitorData($name, $gender, $spriteData, $country, $countryIndexDec,
         "gender" => $gender,
         "Country" => "$country (Dec: $countryIndexDec, Hex: $countryIndexHex)",
         "Subregion" => "$subRegion (Dec: $subRegionIndexDec, Hex: $subRegionIndexHex)",
-        "Sprite description" => "$spriteDescription (Dec: $decSpriteValue, Hex: $hexSpriteValue)"
+        "Sprite description" => "$spriteDescription (Dec: $decSpriteValue, Hex: $hexSpriteValue)",
+        "Greeting" => "$greeting"
     ];
     return $visitorArray;
 }
