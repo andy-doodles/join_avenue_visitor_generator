@@ -14,6 +14,32 @@ $stringTerminator = pack("v", 0xFFFF);
 # Encoded null character
 $nullCharacter = pack("v", 0x0000);
 
+/* Encodes strings to 16-bit, Little Endian
+Visitor-related strings have up to 8 characters (7 char + terminator)
+If string length is between 1 and 6 inclusive,
+encoded nulls pad length until it's 8 */
+function encodeStringAddFiller ($unencodedString, $stringLength, $terminator,
+                                $nullCharacter, $isArrayOutput) {
+    if ($stringLength >= 1 and $stringLength <= 6) {
+        $bufferLength = 7 - $stringLength;
+        $encodedString = mb_convert_encoding($unencodedString, "UTF-16LE");
+        $encodedString .= $terminator;
+        # Adds enough null characters to make greeting length = 8
+        for ($i = 0; $i < $bufferLength; $i++) {
+            $encodedString .= $nullCharacter;
+        }
+    } else {
+        $encodedString = mb_convert_encoding($unencodedString, "UTF-16LE");
+        $encodedString .= $terminator;
+    }
+
+    if ($isArrayOutput) {
+        return [$unencodedString, $encodedString];
+    } else {
+        return $encodedString;
+    }
+}
+
 function generateVisitorGender() {
     $genderArray = ["man", "woman"];
     shuffle($genderArray);
