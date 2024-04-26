@@ -124,21 +124,8 @@ function generateEnglishGreeting($greetingsArray, $terminator, $nullCharacter) {
     $randomIndex = array_rand($greetingsArray);
     $unencodedGreeting = $greetingsArray[$randomIndex];
     $greetingLength = strlen($unencodedGreeting);
-
-    if ($greetingLength >= 1 and $greetingLength <= 6) {
-        $bufferLength = 7 - $greetingLength;
-        $encodedGreeting = mb_convert_encoding($unencodedGreeting, "UTF-16LE");
-        $encodedGreeting .= $terminator;
-        # Adds enough null characters to make greeting length = 8
-        for ($i = 0; $i < $bufferLength; $i++) {
-            $encodedGreeting .= $nullCharacter;
-        }
-    } elseif ($greetingLength == 7) {
-        $encodedGreeting = mb_convert_encoding($unencodedGreeting, "UTF-16LE");
-        $encodedGreeting .= $terminator;
-    }
-
-    return [$unencodedGreeting, $encodedGreeting];
+    return encodeStringAddFiller($unencodedGreeting, $greetingLength, $terminator,
+                            $nullCharacter, true);
 }
 
 function getVisitorData($name, $gender, $spriteData, $country, $countryIndexDec,
