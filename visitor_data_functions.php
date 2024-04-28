@@ -18,8 +18,14 @@ $nullCharacter = pack("v", 0x0000);
 Visitor-related strings have up to 8 characters (7 char + terminator)
 If string length is between 1 and 6 inclusive,
 encoded nulls pad length until it's 8 */
-function encodeStringAddFiller ($unencodedString, $stringLength, $terminator,
-                                $nullCharacter, $isArrayOutput) {
+function encodeStringAddFiller (
+    string $unencodedString,
+    int $stringLength,
+    string $terminator,
+    string $nullCharacter,
+    bool $isArrayOutput
+): string | array
+{
     if ($stringLength >= 1 and $stringLength <= 6) {
         $bufferLength = 7 - $stringLength;
         $encodedString = mb_convert_encoding($unencodedString, "UTF-16LE");
@@ -55,7 +61,10 @@ function generateVisitorGender() {
 }
 
 # Encode visitor gender created with `generateVisitorGender()`
-function assignVisitorGender($gender) {
+function assignVisitorGender(
+    string $gender
+): string
+{
     if ($gender == "man or boy") {
         $visitorGender = pack("v", 0x00);
         return $visitorGender;
@@ -68,7 +77,10 @@ function assignVisitorGender($gender) {
 
 /* Encode visitor name string created with `generateFileName()`
 Append encoded terminator */
-function assignVisitorName($oneByteVisitorName) {
+function assignVisitorName(
+    string $oneByteVisitorName
+): string
+{
     $terminator = pack("v", 0xFFFF);
     $twoByteName = mb_convert_encoding($oneByteVisitorName, "UTF-16LE");
     $twoByteName .= $terminator;
@@ -76,7 +88,9 @@ function assignVisitorName($oneByteVisitorName) {
 }
 
 # Choose a random sprite from a pool
-function chooseSprite($spriteArray) {
+function chooseSprite(
+    array $spriteArray
+): array {
     $keys = array_keys($spriteArray);
     $randomKey = $keys[array_rand($keys)];
     $sprite = $spriteArray[$randomKey];
@@ -120,7 +134,12 @@ Retains unencoded greeting for output
 Greetings are up to 7-character long + terminator
 If greeting length between 1 and 6 inclusive, greeting structure should be:
 (greeting string) + (terminator) + (enough null characters to make greeting length = 8) */
-function generateEnglishGreeting($greetingsArray, $terminator, $nullCharacter) {
+function generateEnglishGreeting(
+    array $greetingsArray,
+    string $terminator,
+    string $nullCharacter
+): string | array
+{
     $randomIndex = array_rand($greetingsArray);
     $unencodedGreeting = $greetingsArray[$randomIndex];
     $greetingLength = strlen($unencodedGreeting);
@@ -128,9 +147,19 @@ function generateEnglishGreeting($greetingsArray, $terminator, $nullCharacter) {
                             $nullCharacter, true);
 }
 
-function getVisitorData($name, $gender, $spriteData, $country, $countryIndexDec,
-    $countryIndexHex, $subRegion, $subRegionIndexDec,
-    $subRegionIndexHex, $greeting) {
+function getVisitorData(
+    string $name,
+    string $gender,
+    array $spriteData,
+    string $country,
+    int $countryIndexDec,
+    string $countryIndexHex,
+    string $subRegion,
+    int $subRegionIndexDec,
+    string $subRegionIndexHex,
+    string $greeting
+): array
+{
     $hexSpriteValue = dechex($spriteData[0]);
     $decSpriteValue = $spriteData[0];
     $spriteDescription = $spriteData[1];

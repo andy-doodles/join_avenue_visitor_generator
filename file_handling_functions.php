@@ -7,7 +7,9 @@ function writeDataToFile($file, $offset, $data) {
 }
 
 # Select a random file from the source directory
-function chooseRandomFile($directory) {
+function chooseRandomFile(
+    string $directory
+): string {
     $directoryArray = scandir($directory);
     # Exclude unwanted directory elements and files
     $directoryArray = array_diff($directoryArray, [".", "..", "desktop.ini"]);
