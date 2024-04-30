@@ -14,6 +14,17 @@ $stringTerminator = pack("v", 0xFFFF);
 # Encoded null character
 $nullCharacter = pack("v", 0x0000);
 
+# Get the value of a random key from an array
+function getValueFromRandomKey (
+    array $array
+): mixed
+{
+    $keys = array_keys($array);
+    $randomKey = $keys[array_rand($keys)];
+    $valueOfKey = $array[$randomKey];
+    return $valueOfKey;
+}
+
 /* Encodes strings to 16-bit, Little Endian
 Visitor-related strings have up to 8 characters (7 char + terminator)
 If string length is between 1 and 6 inclusive,
