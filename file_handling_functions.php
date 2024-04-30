@@ -49,10 +49,22 @@ function writeVisitorNameToFile($file) {
     writeDataToFile($file, 0x00, $visitorName);
 }
 
-# Inject encoded visitor name to file
-function writeVisitorGenderToFile($file, $gender) {
-    $visitorGender = assignVisitorGender($gender);
-    writeDataToFile($file, 0x22, $visitorGender);
+/* Encode visitor gender created with generateVisitorGender()
+Inject encoded visitor name to file
+Gender byte is at offset 0x22
+A value of 0x00 is "man", 0x10 is "woman" */
+function writeVisitorGenderToFile(
+    $file,
+    string $gender
+)
+{
+    if ($gender == "man or boy") {
+        $gender = pack("v", 0x00);
+    }
+    else {
+        $gender = pack("v", 0x10);
+    }
+    writeDataToFile($file, 0x22, $gender);
 }
 
 # Assign a sprite that corresponds with the name's gender

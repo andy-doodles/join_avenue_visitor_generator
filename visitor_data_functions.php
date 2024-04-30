@@ -60,21 +60,6 @@ function generateVisitorGender() {
     }
 }
 
-# Encode visitor gender created with `generateVisitorGender()`
-function assignVisitorGender(
-    string $gender
-): string
-{
-    if ($gender == "man or boy") {
-        $visitorGender = pack("v", 0x00);
-        return $visitorGender;
-    }
-    else {
-        $visitorGender = pack("v", 0x10);
-        return $visitorGender;
-    }
-}
-
 /* Encode visitor name string created with `generateFileName()`
 Append encoded terminator */
 function assignVisitorName(
