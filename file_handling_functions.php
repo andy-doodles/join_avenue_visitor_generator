@@ -9,7 +9,8 @@ function writeDataToFile($file, $offset, $data) {
 # Select a random file from the source directory
 function chooseRandomFile(
     string $directory
-): string {
+): string
+{
     $directoryArray = scandir($directory);
     # Exclude unwanted directory elements and files
     $directoryArray = array_diff($directoryArray, [".", "..", "desktop.ini"]);
@@ -20,7 +21,10 @@ function chooseRandomFile(
 
 /* Generate a 6-character name for the visitor and its corresponding file
 Gender of name depends on gender created with `generateVisitorGender()` */
-function generateFileName($visitorGender) {
+function generateFileName(
+    string $visitorGender
+): string
+{
     global $faker;
     $fileName = "";
 
