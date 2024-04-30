@@ -14,7 +14,7 @@ for ($x = 1; $x <= 8; $x++) {
     */
     $visitorGender = generateVisitorGender();
     [$countryName, $countryIndexDec, $countryIndexHex, $subRegionName,
-        $subRegionIndexDec, $subRegionIndexHex] = chooseCountry();
+        $subRegionIndexDec, $subRegionIndexHex] = chooseCountry($countryList);
     $newFileName = generateFileName($visitorGender);
     [$unencodedGreeting, $encodedGreeting] = 
         generateEnglishGreeting($greetingsListEnglish, $stringTerminator, $nullCharacter);

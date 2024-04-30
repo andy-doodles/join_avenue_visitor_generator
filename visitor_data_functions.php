@@ -83,8 +83,10 @@ function chooseSprite(
 }
 
 # Choose a random country from the available pool
-function chooseCountry() {
-    global $countryList;
+function chooseCountry(
+    array $countryList
+): array
+{
     # Choose a random country from the JSON file
     $visitorCountry = $countryList["countries"][array_rand($countryList["countries"])];
     # Get the country's index, and name
