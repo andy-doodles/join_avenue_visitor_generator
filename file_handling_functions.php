@@ -67,23 +67,16 @@ function writeVisitorGenderToFile(
     writeDataToFile($file, 0x22, $gender);
 }
 
-# Assign a sprite that corresponds with the name's gender
-function writeVisitorSpriteToFile($file, $gender) {
-    global $maleSprites;
-    global $femaleSprites;
-
-    if ($gender == "man or boy") {
-        $maleSprite = chooseSprite($maleSprites);
-        $spriteHexValue = pack("v", $maleSprite[0]);
-        writeDataToFile($file, 0x2A, $spriteHexValue);
-        return $maleSprite;
-    }
-    else {
-        $femaleSprite = chooseSprite($femaleSprites);
-        $spriteHexValue = pack("v", $femaleSprite[0]);
-        writeDataToFile($file, 0x2A, $spriteHexValue);
-        return $femaleSprite;
-    }
+/* Inject the value sprite into the file
+Sprite offset is at 0x2A
+*/
+function writeVisitorSpriteToFile(
+    $file,
+    string $hexSpriteValue
+)
+{
+    $encodedHexSpriteValue = pack("v", $hexSpriteValue);
+    writeDataToFile($file, 0x2A, $encodedHexSpriteValue);
 }
 
 /*

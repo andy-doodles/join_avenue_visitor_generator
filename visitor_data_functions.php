@@ -83,16 +83,6 @@ function assignVisitorName(
     return $twoByteName;
 }
 
-# Choose a random sprite from a pool
-function chooseSprite(
-    array $spriteArray
-): array {
-    $keys = array_keys($spriteArray);
-    $randomKey = $keys[array_rand($keys)];
-    $sprite = $spriteArray[$randomKey];
-    return $sprite;
-}
-
 # Choose a random country from the available pool
 function chooseCountry(
     array $countryList
@@ -148,7 +138,9 @@ function generateEnglishGreeting(
 function getVisitorData(
     string $name,
     string $gender,
-    array $spriteData,
+    string $hexSpriteValue,
+    int $decSpriteValue,
+    string $spriteDescription,
     string $country,
     int $countryIndexDec,
     string $countryIndexHex,
@@ -158,9 +150,6 @@ function getVisitorData(
     string $greeting
 ): array
 {
-    $hexSpriteValue = dechex($spriteData[0]);
-    $decSpriteValue = $spriteData[0];
-    $spriteDescription = $spriteData[1];
     $visitorArray = [
         "name" => $name,
         "gender" => $gender,

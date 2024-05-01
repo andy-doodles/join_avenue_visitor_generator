@@ -32,15 +32,27 @@ for ($x = 1; $x <= 8; $x++) {
     # Write visitor's name, gender, country, and greeting to file
     $outputVisitorFile = fopen($outputPath, "r+b");
     writeVisitorGenderToFile($outputVisitorFile, $visitorGender);
-    $spriteData = writeVisitorSpriteToFile($outputVisitorFile, $visitorGender);
+    
+    # Get sprite number and description based on gender
+    if ($visitorGender == "man or boy") {
+        $spriteData = getValueFromRandomKey($maleSprites);
+    } else {
+        $spriteData = getValueFromRandomKey($femaleSprites);
+    }
+    # Destructure sprite number (hex and decimal) and sprite description
+    $hexSpriteValue = dechex($spriteData[0]);
+    $decSpriteValue = $spriteData[0];
+    $spriteDescription = $spriteData[1];
+
+    writeVisitorSpriteToFile($outputVisitorFile, $hexSpriteValue);
     writeVisitorCountryToFile($outputVisitorFile, $countryIndexDec, $subRegionIndexDec);
     writeVisitorNameToFile($outputVisitorFile);
     writeVisitorGreetingToFile($outputVisitorFile, $encodedGreeting);
 
     # Output visitor data for verification and debugging
     echo "<pre>";
-    print_r(getVisitorData($newFileName, $visitorGender, $spriteData, $countryName,
-        $countryIndexDec, $countryIndexHex, $subRegionName,
+    print_r(getVisitorData($newFileName, $visitorGender, $hexSpriteValue, $decSpriteValue,
+        $spriteDescription, $countryName, $countryIndexDec, $countryIndexHex, $subRegionName,
         $subRegionIndexDec, $subRegionIndexHex, $unencodedGreeting));
     echo "<pre>";
 
