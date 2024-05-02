@@ -90,6 +90,11 @@ function writeVisitorCountryToFile($file, $country, $subRegion) {
     writeDataToFile($file, 0x0F, $subRegion);
 }
 
+# Visitor shout is at offset 0x10
+function writeVisitorShoutToFile($file, $greeting) {
+    writeDataToFile($file, 0x10, $greeting);
+}
+
 # Visitor greeting is at offset 0x80
 function writeVisitorGreetingToFile($file, $greeting) {
     writeDataToFile($file, 0x80, $greeting);

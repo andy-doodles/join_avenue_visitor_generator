@@ -6,10 +6,12 @@ include_once "visitor_generator.php";
 $jsonCountryList = file_get_contents("countries.json");
 $jsonGreetingsListEnglish = file_get_contents("greetings_english.json");
 $jsonFarewellListEnglish = file_get_contents("farewell_english.json");
+$jsonShoutsListEnglish = file_get_contents("shout_english.json");
 # JSON files decoded into arrays 
 $countryList = json_decode($jsonCountryList, true);
 $greetingsListEnglish = json_decode($jsonGreetingsListEnglish, true);
 $farewellListEnglish = json_decode($jsonFarewellListEnglish, true);
+$shoutsListEnglish = json_decode($jsonShoutsListEnglish, true);
 
 # Encoded character that signals the end of a string in .pjv binary files
 $stringTerminator = pack("v", 0xFFFF);
@@ -151,7 +153,8 @@ function getVisitorData(
     int $subRegionIndexDec,
     string $subRegionIndexHex,
     string $greeting,
-    string $farewell
+    string $farewell,
+    string $shout
 ): array
 {
     $visitorArray = [
@@ -161,7 +164,8 @@ function getVisitorData(
         "Subregion" => "$subRegion (Dec: $subRegionIndexDec, Hex: $subRegionIndexHex)",
         "Sprite description" => "$spriteDescription (Dec: $decSpriteValue, Hex: $hexSpriteValue)",
         "Greeting" => "$greeting",
-        "Farewell" => "$farewell"
+        "Farewell" => "$farewell",
+        "Shout" => "$shout"
     ];
     return $visitorArray;
 }
