@@ -16,11 +16,12 @@ for ($x = 1; $x <= 8; $x++) {
     [$countryName, $countryIndexDec, $countryIndexHex, $subRegionName,
         $subRegionIndexDec, $subRegionIndexHex] = chooseCountry($countryList);
     $newFileName = generateFileName($visitorGender);
+    # Destructure the visitor's greeting
     [$unencodedGreeting, $encodedGreeting] = 
-        generateEnglishGreeting($greetingsListEnglish, $stringTerminator, $nullCharacter);
+        generateVisitorDialogue($greetingsListEnglish, $stringTerminator, $nullCharacter);
     # Destructure the visitor's farewell
     [$unencodedFarewell, $encodedFarewell] = 
-        generateEnglishFarewell($farewellListEnglish, $stringTerminator, $nullCharacter);
+        generateVisitorDialogue($farewellListEnglish, $stringTerminator, $nullCharacter);
 
     # Choose a random file from source directory
     $inputPath = $sourceDirectory . chooseRandomFile($sourceDirectory);

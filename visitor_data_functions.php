@@ -29,8 +29,9 @@ function getValueFromRandomKey (
 
 /* Encodes strings to 16-bit, Little Endian
 Visitor-related strings have up to 8 characters (7 char + terminator)
-If string length is between 1 and 6 inclusive,
-encoded nulls pad length until it's 8 */
+If dialogue length between 1 and 6 inclusive, dialogue structure should be:
+(dialogue string) + (terminator) + (enough null characters to make dialogue length = 8)
+*/
 function encodeStringAddFiller (
     string $unencodedString,
     int $stringLength,
@@ -119,34 +120,21 @@ function chooseCountry(
     return $countryArray;
 }
 
-/* Chooses random greeting and encodes it (16-bit, little endian)
-Retains unencoded greeting for output
-Greetings are up to 7-character long + terminator
-If greeting length between 1 and 6 inclusive, greeting structure should be:
-(greeting string) + (terminator) + (enough null characters to make greeting length = 8) */
-function generateEnglishGreeting(
-    array $greetingsArray,
+/* Generates all visitor dialogues: greeting, farewell, and shout
+Chooses random greeting/farewell/shout and encodes it (16-bit, little endian)
+Retains unencoded dialogues for output
+Dialogues are up to 7-character long + terminator
+*/
+function generateVisitorDialogue(
+    array $dialogueArray,
     string $terminator,
     string $nullCharacter
 ): string | array
 {
-    $randomIndex = array_rand($greetingsArray);
-    $unencodedGreeting = $greetingsArray[$randomIndex];
-    $greetingLength = strlen($unencodedGreeting);
-    return encodeStringAddFiller($unencodedGreeting, $greetingLength, $terminator,
-                            $nullCharacter, true);
-}
-
-function generateEnglishFarewell(
-    array $farewellArray,
-    string $terminator,
-    string $nullCharacter
-): string | array
-{
-    $randomIndex = array_rand($farewellArray);
-    $unencodedGreeting = $farewellArray[$randomIndex];
-    $greetingLength = strlen($unencodedGreeting);
-    return encodeStringAddFiller($unencodedGreeting, $greetingLength, $terminator,
+    $randomIndex = array_rand($dialogueArray);
+    $unencodedDialogue = $dialogueArray[$randomIndex];
+    $dialogueLength = strlen($unencodedDialogue);
+    return encodeStringAddFiller($unencodedDialogue, $dialogueLength, $terminator,
                             $nullCharacter, true);
 }
 
