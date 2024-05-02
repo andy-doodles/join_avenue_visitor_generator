@@ -18,6 +18,9 @@ for ($x = 1; $x <= 8; $x++) {
     $newFileName = generateFileName($visitorGender);
     [$unencodedGreeting, $encodedGreeting] = 
         generateEnglishGreeting($greetingsListEnglish, $stringTerminator, $nullCharacter);
+    # Destructure the visitor's farewell
+    [$unencodedFarewell, $encodedFarewell] = 
+        generateEnglishFarewell($farewellListEnglish, $stringTerminator, $nullCharacter);
 
     # Choose a random file from source directory
     $inputPath = $sourceDirectory . chooseRandomFile($sourceDirectory);
@@ -48,12 +51,13 @@ for ($x = 1; $x <= 8; $x++) {
     writeVisitorCountryToFile($outputVisitorFile, $countryIndexDec, $subRegionIndexDec);
     writeVisitorNameToFile($outputVisitorFile);
     writeVisitorGreetingToFile($outputVisitorFile, $encodedGreeting);
+    writeVisitorFarewellToFile($outputVisitorFile, $encodedFarewell);
 
     # Output visitor data for verification and debugging
     echo "<pre>";
     print_r(getVisitorData($newFileName, $visitorGender, $hexSpriteValue, $decSpriteValue,
         $spriteDescription, $countryName, $countryIndexDec, $countryIndexHex, $subRegionName,
-        $subRegionIndexDec, $subRegionIndexHex, $unencodedGreeting));
+        $subRegionIndexDec, $subRegionIndexHex, $unencodedGreeting, $unencodedFarewell));
     echo "<pre>";
 
     fclose($outputVisitorFile);

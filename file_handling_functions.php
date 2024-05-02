@@ -95,4 +95,9 @@ function writeVisitorGreetingToFile($file, $greeting) {
     writeDataToFile($file, 0x80, $greeting);
 }
 
+# Visitor greeting is at offset 0x90
+function writeVisitorFarewellToFile($file, $greeting) {
+    writeDataToFile($file, 0x90, $greeting);
+}
+
 ?>
