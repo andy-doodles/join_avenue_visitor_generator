@@ -10,20 +10,22 @@ $faker = Faker\Factory::create();
 $sourceDirectory = "C:/xampp/htdocs/join_avenue_visitor_generator/Base Visitors/";
 
 for ($x = 1; $x <= 8; $x++) {
-    /* Get visitor gender, country info, file name, and greetings
-    */
+    # Get visitor gender and file name
     $visitorGender = generateVisitorGender();
+    $newFileName = generateFileName($visitorGender);
+    # Destructure country info
     [$countryName, $countryIndexDec, $countryIndexHex, $subRegionName,
         $subRegionIndexDec, $subRegionIndexHex] = chooseCountry($countryList);
-    $newFileName = generateFileName($visitorGender);
+
     # Destructure the visitor's greeting
     [$unencodedGreeting, $encodedGreeting] = 
         generateVisitorDialogue($greetingsListEnglish, $stringTerminator, $nullCharacter);
     # Destructure the visitor's farewell
     [$unencodedFarewell, $encodedFarewell] = 
         generateVisitorDialogue($farewellListEnglish, $stringTerminator, $nullCharacter);
+    # Destructure the visitor's shout
     [$unencodedShout, $encodedShout] = 
-    generateVisitorDialogue($shoutsListEnglish, $stringTerminator, $nullCharacter);
+        generateVisitorDialogue($shoutsListEnglish, $stringTerminator, $nullCharacter);
 
     # Choose a random file from source directory
     $inputPath = $sourceDirectory . chooseRandomFile($sourceDirectory);
@@ -50,6 +52,7 @@ for ($x = 1; $x <= 8; $x++) {
     $decSpriteValue = $spriteData[0];
     $spriteDescription = $spriteData[1];
 
+    # Inject all generated into the file
     writeVisitorSpriteToFile($outputVisitorFile, $hexSpriteValue);
     writeVisitorCountryToFile($outputVisitorFile, $countryIndexDec, $subRegionIndexDec);
     writeVisitorNameToFile($outputVisitorFile);
