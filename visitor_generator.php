@@ -13,19 +13,28 @@ for ($x = 1; $x <= 8; $x++) {
     # Get visitor gender and file name
     $visitorGender = generateVisitorGender();
     $newFileName = generateFileName($visitorGender);
+
     # Destructure country info
-    [$countryName, $countryIndexDec, $countryIndexHex, $subRegionName,
-        $subRegionIndexDec, $subRegionIndexHex] = chooseCountry($countryList);
+    $countryData = chooseCountry($countryList);
+    $countryName = $countryData[0];
+    $countryIndexDec = $countryData[1];
+    $countryIndexHex = $countryData[2];
+    $subRegionName = $countryData[3];
+    $subRegionIndexDec = $countryData[4];
+    $subRegionIndexHex = $countryData[5];
 
     # Destructure the visitor's greeting
-    [$unencodedGreeting, $encodedGreeting] = 
-        generateVisitorDialogue($greetingsListEnglish, $stringTerminator, $nullCharacter);
+    $visitorGreeting = generateVisitorDialogue($greetingsListEnglish, $stringTerminator, $nullCharacter);
+    $unencodedGreeting = $visitorGreeting[0];
+    $encodedGreeting = $visitorGreeting[1];
     # Destructure the visitor's farewell
-    [$unencodedFarewell, $encodedFarewell] = 
-        generateVisitorDialogue($farewellListEnglish, $stringTerminator, $nullCharacter);
+    $visitorFarewell = generateVisitorDialogue($farewellListEnglish, $stringTerminator, $nullCharacter);
+    $unencodedFarewell = $visitorFarewell[0];
+    $encodedFarewell = $visitorFarewell[1];
     # Destructure the visitor's shout
-    [$unencodedShout, $encodedShout] = 
-        generateVisitorDialogue($shoutsListEnglish, $stringTerminator, $nullCharacter);
+    $visitorShout = generateVisitorDialogue($shoutsListEnglish, $stringTerminator, $nullCharacter);
+    $unencodedShout = $visitorShout[0];
+    $encodedShout = $visitorShout[0];
 
     # Choose a random file from source directory
     $inputPath = $sourceDirectory . chooseRandomFile($sourceDirectory);
