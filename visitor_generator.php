@@ -2,7 +2,7 @@
 
 # http://localhost/join_avenue_visitor_generator/visitor_generator.php
 
-require_once "C:/xampp/htdocs/join_avenue_visitor_generator/libraries/vendor/autoload.php";
+require_once "C:/xampp/htdocs/join_avenue_visitor_generator/vendor/autoload.php";
 include_once "sprite_arrays.php";
 include_once "file_handling_functions.php";
 include_once "visitor_data_functions.php";
