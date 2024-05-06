@@ -12,7 +12,7 @@ $sourceDirectory = "C:/xampp/htdocs/join_avenue_visitor_generator/Base Visitors/
 for ($x = 1; $x <= 8; $x++) {
     # Get visitor gender and file name
     $visitorGender = generateVisitorGender();
-    $newFileName = generateFileName($visitorGender);
+    $newFileName = generateFileName($visitorGender, $faker);
 
     # Destructure country info
     $countryData = chooseCountry($countryList);
@@ -64,7 +64,7 @@ for ($x = 1; $x <= 8; $x++) {
     # Inject all generated into the file
     writeVisitorSpriteToFile($outputVisitorFile, $hexSpriteValue);
     writeVisitorCountryToFile($outputVisitorFile, $countryIndexDec, $subRegionIndexDec);
-    writeVisitorNameToFile($outputVisitorFile);
+    writeVisitorNameToFile($newFileName, $outputVisitorFile, $stringTerminator);
     writeVisitorShoutToFile($outputVisitorFile, $encodedShout);
     writeVisitorGreetingToFile($outputVisitorFile, $encodedGreeting);
     writeVisitorFarewellToFile($outputVisitorFile, $encodedFarewell);

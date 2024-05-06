@@ -1,5 +1,7 @@
 <?php
 
+
+
 function writeDataToFile($file, $offset, $data) {
     fseek($file, $offset);
     fwrite($file, $data);
@@ -22,20 +24,20 @@ function chooseRandomFile(
 /* Generate a 6-character name for the visitor and its corresponding file
 Gender of name depends on gender created with `generateVisitorGender()` */
 function generateFileName(
-    string $visitorGender
+    string $visitorGender,
+    $faker
 ): string
 {
-    global $faker;
     $fileName = "";
 
     if ($visitorGender == "man or boy") {
         do {
-        $fileName = $faker->firstNameMale;
+        $fileName = $faker->firstNameMale();
         } while (strlen($fileName) != 6);
     }
     else {
         do {
-            $fileName = $faker->firstNameFemale;
+            $fileName = $faker->firstNameFemale();
         } while (strlen($fileName) != 6);
     }
 
@@ -43,10 +45,10 @@ function generateFileName(
 }
 
 # Inject encoded visitor name to file
-function writeVisitorNameToFile($file) {
-    global $newFileName;
-    $visitorName = assignVisitorName($newFileName);
-    writeDataToFile($file, 0x00, $visitorName);
+function writeVisitorNameToFile($newFileName, $file, $terminator) {
+    $twoByteName = mb_convert_encoding($newFileName, "UTF-16LE");
+    $twoByteName .= $terminator;
+    writeDataToFile($file, 0x00, $twoByteName);
 }
 
 /* Encode visitor gender created with generateVisitorGender()
