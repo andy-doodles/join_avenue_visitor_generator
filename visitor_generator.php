@@ -34,7 +34,7 @@ for ($x = 1; $x <= 8; $x++) {
     # Destructure the visitor's shout
     $visitorShout = generateVisitorDialogue($shoutsListEnglish, $stringTerminator, $nullCharacter);
     $unencodedShout = $visitorShout[0];
-    $encodedShout = $visitorShout[0];
+    $encodedShout = $visitorShout[1];
 
     # Choose a random file from source directory
     $inputPath = $sourceDirectory . chooseRandomFile($sourceDirectory);
