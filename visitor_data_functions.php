@@ -39,20 +39,43 @@ function encodeStringAddFiller (
     int $stringLength,
     string $terminator,
     string $nullCharacter,
-    bool $isArrayOutput
+    bool $isArrayOutput,
+    bool $isName
 ): string | array
 {
-    if ($stringLength >= 1 and $stringLength <= 6) {
-        $bufferLength = 7 - $stringLength;
-        $encodedString = mb_convert_encoding($unencodedString, "UTF-16LE");
-        $encodedString .= $terminator;
-        # Adds enough null characters to make greeting length = 8
-        for ($i = 0; $i < $bufferLength; $i++) {
-            $encodedString .= $nullCharacter;
+    if ($isName) {
+        # Maximum string length for names is 7 (6 characters + 1 terminator)
+        if ($stringLength >= 1 and $stringLength <= 5) {
+            $bufferLength = 6 - $stringLength;
+            $encodedString = mb_convert_encoding($unencodedString, "UTF-16LE");
+            $encodedString .= $terminator;
+            # Adds enough null characters to make name length = 7
+            for ($i = 0; $i < $bufferLength; $i++) {
+                $encodedString .= $nullCharacter;
+            }
+        } else {
+            /* If the string is a name and not 1-5 characters long,
+            it can only be 6 characters long */
+            $encodedString = mb_convert_encoding($unencodedString, "UTF-16LE");
+            $encodedString .= $terminator;
         }
     } else {
-        $encodedString = mb_convert_encoding($unencodedString, "UTF-16LE");
-        $encodedString .= $terminator;
+        /* If the string is not a name, it's a dialogue
+        Dialogues can be up to 8 characters total (7 characters + 1 terminator) */
+        if ($stringLength >= 1 and $stringLength <= 6) {
+            $bufferLength = 7 - $stringLength;
+            $encodedString = mb_convert_encoding($unencodedString, "UTF-16LE");
+            $encodedString .= $terminator;
+            # Adds enough null characters to make greeting length = 8
+            for ($i = 0; $i < $bufferLength; $i++) {
+                $encodedString .= $nullCharacter;
+            }
+        } else {
+            /* If the string is a dialogue and not 1-6 characters long,
+            it can only be 7 characters long */
+            $encodedString = mb_convert_encoding($unencodedString, "UTF-16LE");
+            $encodedString .= $terminator;
+        }
     }
 
     if ($isArrayOutput) {
@@ -137,7 +160,7 @@ function generateVisitorDialogue(
     $unencodedDialogue = $dialogueArray[$randomIndex];
     $dialogueLength = strlen($unencodedDialogue);
     return encodeStringAddFiller($unencodedDialogue, $dialogueLength, $terminator,
-                            $nullCharacter, true);
+                            $nullCharacter, true, false);
 }
 
 function getVisitorData(

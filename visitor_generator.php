@@ -64,7 +64,7 @@ for ($x = 1; $x <= 8; $x++) {
     # Inject all generated into the file
     writeVisitorSpriteToFile($outputVisitorFile, $hexSpriteValue);
     writeVisitorCountryToFile($outputVisitorFile, $countryIndexDec, $subRegionIndexDec);
-    writeVisitorNameToFile($newFileName, $outputVisitorFile, $stringTerminator);
+    writeVisitorNameToFile($newFileName, $outputVisitorFile, $stringTerminator, $nullCharacter);
     writeVisitorShoutToFile($outputVisitorFile, $encodedShout);
     writeVisitorGreetingToFile($outputVisitorFile, $encodedGreeting);
     writeVisitorFarewellToFile($outputVisitorFile, $encodedFarewell);
