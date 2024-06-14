@@ -9,12 +9,26 @@ include_once "visitor_data_functions.php";
 $faker = Faker\Factory::create();
 $sourceDirectory = "C:/xampp/htdocs/join_avenue_visitor_generator/Base Visitors/";
 
+
+/*
+- This script modifies an existing Join Avenue Visitor (.pjv) file from
+the games Pokémon Black 2 and Pokémon White 2
+- Each .pjv file represents a "visitor" that appears in the game's Join Avenue
+feature as a passerby interested in engaging with the Avenue's shops
+- The script chooses a random existing .pjv file from a source directory, then
+copies and pastes its contents into a new file
+- The script generates randomized data for the new file, including:
+name, gender, country, subregion, greeting, farewell, shout, and sprite
+- When all data is generated, the script opens the output file and injects all
+the generated data into it
+*/
+
 for ($x = 1; $x <= 8; $x++) {
     # Get visitor gender and file name
     $visitorGender = generateVisitorGender();
     $newFileName = generateFileName($visitorGender, $faker);
 
-    # Destructure country info
+    # Create and destructure country info
     $countryData = chooseCountry($countryList);
     $countryName = $countryData[0];
     $countryIndexDec = $countryData[1];
@@ -23,46 +37,48 @@ for ($x = 1; $x <= 8; $x++) {
     $subRegionIndexDec = $countryData[4];
     $subRegionIndexHex = $countryData[5];
 
-    # Destructure the visitor's greeting
+    # Create and destructure the visitor's greeting
     $visitorGreeting = generateVisitorDialogue($greetingsListEnglish, $stringTerminator, $nullCharacter);
     $unencodedGreeting = $visitorGreeting[0];
     $encodedGreeting = $visitorGreeting[1];
-    # Destructure the visitor's farewell
+    # Create and destructure the visitor's farewell
     $visitorFarewell = generateVisitorDialogue($farewellListEnglish, $stringTerminator, $nullCharacter);
     $unencodedFarewell = $visitorFarewell[0];
     $encodedFarewell = $visitorFarewell[1];
-    # Destructure the visitor's shout
+    # Create and destructure the visitor's shout
     $visitorShout = generateVisitorDialogue($shoutsListEnglish, $stringTerminator, $nullCharacter);
     $unencodedShout = $visitorShout[0];
     $encodedShout = $visitorShout[1];
 
-    # Choose a random file from source directory
-    $inputPath = $sourceDirectory . chooseRandomFile($sourceDirectory);
-    # Path to new file
-    $outputPath = "C:/xampp/htdocs/join_avenue_visitor_generator/Output Visitors/" . $newFileName . ".pjv";
-
-    # Open source file, copy it, close original
-    $inputVisitorFile = fopen($inputPath, "r+b");
-    $copyFile = copy($inputPath, $outputPath);
-    fclose($inputVisitorFile);
-
-    # Write visitor's name, gender, country, and greeting to file
-    $outputVisitorFile = fopen($outputPath, "r+b");
-    writeVisitorGenderToFile($outputVisitorFile, $visitorGender);
-    
     # Get sprite number and description based on gender
-    if ($visitorGender == "man or boy") {
-        $spriteData = getValueFromRandomKey($maleSprites);
-    } else {
-        $spriteData = getValueFromRandomKey($femaleSprites);
-    }
+    $spriteData = chooseSprite($maleSprites, $femaleSprites, $visitorGender);
     # Destructure sprite number (hex and decimal) and sprite description
     $hexSpriteValue = dechex($spriteData[0]);
     $decSpriteValue = $spriteData[0];
     $spriteDescription = $spriteData[1];
 
-    # Inject all generated into the file
-    writeVisitorSpriteToFile($outputVisitorFile, $hexSpriteValue);
+    /* With all the necessary data generated, the script now writes said
+    data into an output file */
+    
+    # Choose a random file from source directory
+    $inputPath = $sourceDirectory . chooseRandomFile($sourceDirectory);
+    # Establish the path to new, output file
+    $outputPath = "C:/xampp/htdocs/join_avenue_visitor_generator/Output Visitors/" . $newFileName . ".pjv";
+
+    # Open source file
+    $inputVisitorFile = fopen($inputPath, "r+b");
+    # Copy the content of the source file to the output file
+    $copyFile = copy($inputPath, $outputPath);
+    # Close source file
+    fclose($inputVisitorFile);
+    
+    # Open output file for editing
+    $outputVisitorFile = fopen($outputPath, "r+b");
+
+    /* Inject all remaining generated data into the file:
+    Gender, sprite, country and subregion, visitor name, shout, greeting, and farewell */
+    writeVisitorGenderToFile($outputVisitorFile, $visitorGender);
+    writeVisitorSpriteToFile($outputVisitorFile, hexdec($hexSpriteValue));
     writeVisitorCountryToFile($outputVisitorFile, $countryIndexDec, $subRegionIndexDec);
     writeVisitorNameToFile($newFileName, $outputVisitorFile, $stringTerminator, $nullCharacter);
     writeVisitorShoutToFile($outputVisitorFile, $encodedShout);
@@ -77,6 +93,7 @@ for ($x = 1; $x <= 8; $x++) {
         $unencodedShout));
     echo "<pre>";
 
+    # Close file
     fclose($outputVisitorFile);
 }
 

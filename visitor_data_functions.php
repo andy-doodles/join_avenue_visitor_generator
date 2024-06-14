@@ -18,17 +18,6 @@ $stringTerminator = pack("v", 0xFFFF);
 # Encoded null character
 $nullCharacter = pack("v", 0x0000);
 
-# Get the value of a random key from an array
-function getValueFromRandomKey (
-    array $array
-): mixed
-{
-    $keys = array_keys($array);
-    $randomKey = $keys[array_rand($keys)];
-    $valueOfKey = $array[$randomKey];
-    return $valueOfKey;
-}
-
 /* Encodes strings to 16-bit, Little Endian
 Visitor-related strings have up to 8 characters (7 char + terminator)
 If dialogue length between 1 and 6 inclusive, dialogue structure should be:
@@ -60,7 +49,7 @@ function encodeStringAddFiller (
             $encodedString .= $terminator;
         }
     } else {
-        /* If the string is not a name, it's a dialogue
+        /* If the string is not a name, it's a dialogue (greeting, farewell, shout)
         Dialogues can be up to 8 characters total (7 characters + 1 terminator) */
         if ($stringLength >= 1 and $stringLength <= 6) {
             $bufferLength = 7 - $stringLength;
@@ -143,6 +132,35 @@ function chooseCountry(
     $countryArray = [$countryName, $countryIndexDec, $countryIndexHex,
         $subRegionName, $subRegionIndexDec, $subRegionIndexHex,];
     return $countryArray;
+}
+
+# Get the value of a random key from an array
+function getValueFromRandomKey (
+    array $array
+): mixed
+{
+    # Get all array keys into an array
+    # Returns an array like [0, 1, 2, 3, ...]; or ["Sprite #1", "Sprite #2", "Sprite #3", ...];
+    $keys = array_keys($array);
+    # Get one random key from the keys array. E.g.: 0 or "Sprite 1"
+    $randomKey = $keys[array_rand($keys)];
+    # Get the value that corresponds to the random key
+    $valueOfKey = $array[$randomKey];
+    return $valueOfKey;
+}
+
+function chooseSprite(
+    array $maleSprites,
+    array $femaleSprites,
+    string $gender,
+) {
+    if ($gender == "man or boy") {
+        $spriteData = getValueFromRandomKey($maleSprites);
+        return $spriteData;
+    } else {
+        $spriteData = getValueFromRandomKey($femaleSprites);
+        return $spriteData;
+    }
 }
 
 /* Generates all visitor dialogues: greeting, farewell, and shout

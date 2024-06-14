@@ -73,8 +73,9 @@ function writeVisitorSpriteToFile(
     string $hexSpriteValue
 )
 {
-    $encodedHexSpriteValue = pack("v", $hexSpriteValue);
-    writeDataToFile($file, 0x2A, $encodedHexSpriteValue);
+    # $encodedHexSpriteValue = pack("v", $hexSpriteValue);
+    $hexSpriteValue = chr($hexSpriteValue);
+    writeDataToFile($file, 0x2A, $hexSpriteValue);
 }
 
 /*
