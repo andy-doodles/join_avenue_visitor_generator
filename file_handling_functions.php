@@ -103,4 +103,24 @@ function writeVisitorFarewellToFile($file, $greeting) {
     writeDataToFile($file, 0x90, $greeting);
 }
 
+/* Writes data about the day, month, and year the player met the visitor 
+Year met is at offset 0xA3
+Month met is at offset 0xA4
+Day met is at offset 0xA5
+*/
+function writeDateMetToFile(
+    $file,
+    int $yearMet,
+    int $monthMet,
+    int $dayMet
+)
+{
+    $yearMet = chr($yearMet);
+    $monthMet = chr($monthMet);
+    $dayMet = chr($dayMet);
+    writeDataToFile($file, 0xA3, $yearMet);
+    writeDataToFile($file, 0xA4, $monthMet);
+    writeDataToFile($file, 0xA5, $dayMet);
+}
+
 ?>

@@ -57,6 +57,15 @@ for ($x = 1; $x <= 8; $x++) {
     $decSpriteValue = $spriteData[0];
     $spriteDescription = $spriteData[1];
 
+    /* Generate data about the day, month, and year the player met the visitor 
+    Each piece of data corresponds to one byte in the binary file */
+    # $dateMet = $faker->dateTimeBetween('-12 years');
+    $dateMet = $faker->dateTimeBetween("-12 years");
+    $formattedDateMet = $dateMet->format("Y-m-d");
+    $yearMet = $dateMet->format("y");
+    $monthMet = $dateMet->format("m");
+    $dayMet = $dateMet->format("d");
+
     /* With all the necessary data generated, the script now writes said
     data into an output file */
     
@@ -76,7 +85,8 @@ for ($x = 1; $x <= 8; $x++) {
     $outputVisitorFile = fopen($outputPath, "r+b");
 
     /* Inject all remaining generated data into the file:
-    Gender, sprite, country and subregion, visitor name, shout, greeting, and farewell */
+    Gender, sprite, country and subregion, visitor name, shout, greeting, farewell
+    and date met*/
     writeVisitorGenderToFile($outputVisitorFile, $visitorGender);
     writeVisitorSpriteToFile($outputVisitorFile, hexdec($hexSpriteValue));
     writeVisitorCountryToFile($outputVisitorFile, $countryIndexDec, $subRegionIndexDec);
@@ -84,13 +94,14 @@ for ($x = 1; $x <= 8; $x++) {
     writeVisitorShoutToFile($outputVisitorFile, $encodedShout);
     writeVisitorGreetingToFile($outputVisitorFile, $encodedGreeting);
     writeVisitorFarewellToFile($outputVisitorFile, $encodedFarewell);
+    writeDateMetToFile($outputVisitorFile, $yearMet, $monthMet, $dayMet);
 
     # Output visitor data for verification and debugging
     echo "<pre>";
     print_r(getVisitorData($newFileName, $visitorGender, $hexSpriteValue, $decSpriteValue,
         $spriteDescription, $countryName, $countryIndexDec, $countryIndexHex, $subRegionName,
         $subRegionIndexDec, $subRegionIndexHex, $unencodedGreeting, $unencodedFarewell,
-        $unencodedShout));
+        $unencodedShout, $formattedDateMet));
     echo "<pre>";
 
     # Close file

@@ -195,11 +195,13 @@ function getVisitorData(
     string $subRegionIndexHex,
     string $greeting,
     string $farewell,
-    string $shout
+    string $shout,
+    string $dateMet
 ): array
 {
     $visitorArray = [
         "name" => $name,
+        "Date met" => $dateMet,
         "gender" => $gender,
         "Country" => "$country (Dec: $countryIndexDec, Hex: $countryIndexHex)",
         "Subregion" => "$subRegion (Dec: $subRegionIndexDec, Hex: $subRegionIndexHex)",
