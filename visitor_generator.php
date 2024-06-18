@@ -59,7 +59,6 @@ for ($x = 1; $x <= 8; $x++) {
 
     /* Generate data about the day, month, and year the player met the visitor 
     Each piece of data corresponds to one byte in the binary file */
-    # $dateMet = $faker->dateTimeBetween('-12 years');
     $dateMet = $faker->dateTimeBetween("-12 years");
     $formattedDateMet = $dateMet->format("Y-m-d");
     $yearMet = $dateMet->format("y");
