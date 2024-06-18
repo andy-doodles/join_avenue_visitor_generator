@@ -65,6 +65,9 @@ for ($x = 1; $x <= 8; $x++) {
     $monthMet = $dateMet->format("m");
     $dayMet = $dateMet->format("d");
 
+    # Generate a random amount of medals between 0 and 255
+    $visitorMedals = rand(0, 255);
+
     /* With all the necessary data generated, the script now writes said
     data into an output file */
     
@@ -94,13 +97,14 @@ for ($x = 1; $x <= 8; $x++) {
     writeVisitorGreetingToFile($outputVisitorFile, $encodedGreeting);
     writeVisitorFarewellToFile($outputVisitorFile, $encodedFarewell);
     writeDateMetToFile($outputVisitorFile, $yearMet, $monthMet, $dayMet);
+    writeNumberOfMedalsToFile($outputVisitorFile, $visitorMedals);
 
     # Output visitor data for verification and debugging
     echo "<pre>";
     print_r(getVisitorData($newFileName, $visitorGender, $hexSpriteValue, $decSpriteValue,
         $spriteDescription, $countryName, $countryIndexDec, $countryIndexHex, $subRegionName,
         $subRegionIndexDec, $subRegionIndexHex, $unencodedGreeting, $unencodedFarewell,
-        $unencodedShout, $formattedDateMet));
+        $unencodedShout, $formattedDateMet, $visitorMedals));
     echo "<pre>";
 
     # Close file

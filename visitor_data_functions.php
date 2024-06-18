@@ -196,7 +196,8 @@ function getVisitorData(
     string $greeting,
     string $farewell,
     string $shout,
-    string $dateMet
+    string $dateMet,
+    int $visitorMedals
 ): array
 {
     $visitorArray = [
@@ -208,7 +209,8 @@ function getVisitorData(
         "Sprite description" => "$spriteDescription (Dec: $decSpriteValue, Hex: $hexSpriteValue)",
         "Greeting" => "$greeting",
         "Farewell" => "$farewell",
-        "Shout" => "$shout"
+        "Shout" => "$shout",
+        "Number of medals" => $visitorMedals
     ];
     return $visitorArray;
 }

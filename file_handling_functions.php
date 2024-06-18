@@ -123,4 +123,16 @@ function writeDateMetToFile(
     writeDataToFile($file, 0xA5, $dayMet);
 }
 
+/* Writes the number of medals the visitor has
+Number of medals is at offset 0x39
+*/
+function writeNumberOfMedalsToFile(
+    $file,
+    int $visitorMedals
+)
+{
+    $visitorMedals = chr($visitorMedals);
+    writeDataToFile($file, 0x39, $visitorMedals);
+}
+
 ?>
