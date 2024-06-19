@@ -197,7 +197,8 @@ function getVisitorData(
     string $farewell,
     string $shout,
     string $dateMet,
-    int $visitorMedals
+    int $visitorMedals,
+    int $visitorLinkTrades
 ): array
 {
     $visitorArray = [
@@ -210,7 +211,8 @@ function getVisitorData(
         "Greeting" => "$greeting",
         "Farewell" => "$farewell",
         "Shout" => "$shout",
-        "Number of medals" => $visitorMedals
+        "Number of medals" => $visitorMedals,
+        "Number of link trades" => $visitorLinkTrades,
     ];
     return $visitorArray;
 }

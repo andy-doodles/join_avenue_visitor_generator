@@ -68,6 +68,12 @@ for ($x = 1; $x <= 8; $x++) {
     # Generate a random amount of medals between 0 and 255
     $visitorMedals = rand(0, 255);
 
+    /* Generate data about the number of Pokémon link trades the visitor has
+    participated in. Number is between 0 and 2^31 - 1
+    This number will be converted to a signed integer (32-bit,
+    little endian) during the process of writing it to the file */
+    $visitorLinkTrades = rand(0, 2000);
+
     /* With all the necessary data generated, the script now writes said
     data into an output file */
     
@@ -98,13 +104,14 @@ for ($x = 1; $x <= 8; $x++) {
     writeVisitorFarewellToFile($outputVisitorFile, $encodedFarewell);
     writeDateMetToFile($outputVisitorFile, $yearMet, $monthMet, $dayMet);
     writeNumberOfMedalsToFile($outputVisitorFile, $visitorMedals);
+    writeNumberOfLinkTradesToFile($outputVisitorFile, $visitorLinkTrades);
 
     # Output visitor data for verification and debugging
     echo "<pre>";
     print_r(getVisitorData($newFileName, $visitorGender, $hexSpriteValue, $decSpriteValue,
         $spriteDescription, $countryName, $countryIndexDec, $countryIndexHex, $subRegionName,
         $subRegionIndexDec, $subRegionIndexHex, $unencodedGreeting, $unencodedFarewell,
-        $unencodedShout, $formattedDateMet, $visitorMedals));
+        $unencodedShout, $formattedDateMet, $visitorMedals, $visitorLinkTrades));
     echo "<pre>";
 
     # Close file
