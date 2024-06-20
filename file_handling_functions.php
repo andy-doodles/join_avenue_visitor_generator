@@ -135,19 +135,6 @@ function writeNumberOfMedalsToFile(
     writeDataToFile($file, 0x39, $visitorMedals);
 }
 
-/* Writes the number of Pokémon link trades the visitor has participated in
-The integer is converted to a 32-bit, little endian signed integer
-Number of link trades is at offset 0x40
-*/
-function writeNumberOfLinkTradesToFile(
-    $file,
-    int $visitorLinkTrades
-)
-{
-    $signedVisitorLinkTrades = pack("l", $visitorLinkTrades);
-    writeDataToFile($file, 0x40, $signedVisitorLinkTrades);
-}
-
 /* Writes to fila any number that needs to be a signed integer in the binary file
 The provided integer is converted to a 32-bit, little endian signed integer
 */
