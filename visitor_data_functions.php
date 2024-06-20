@@ -181,6 +181,62 @@ function generateVisitorDialogue(
                             $nullCharacter, true, false);
 }
 
+/* 
+Function to generate random number within a range while accounting for
+probability brackets:
+* 90% of numbers would be in the first sub-range
+* 5% of numbers would be in the second sub-range
+* 2% of numbers would be in the third sub-range
+* 1% of numbers would be in the fourth sub-range
+* 0.99% of numbers would be in the fifth sub-range
+* 0.01% of numbers would be in the sixth sub-range
+
+To achieve this, the function generates a number between 1 and 10000.
+Depending on the value of the random number, the function then generates 
+a new random number within the corresponding range.
+
+Example: Generate a number between 1 and 2000
+* 90% of the time, the number would be in the 1 - 200 range
+* 5% of the time, the number would be in the 201 - 500 range
+* 2% of the time, the number would be in the 501 - 1000 range
+* 1% of the time, the number would be in the 1001 - 1500 range
+* 0.99% of the time, the number would be in the 1501 - 1900 range
+* 0.01% of the time, the number would be in the 1901 - 2000 range
+
+Sub-ranges are editable
+*/
+function getWeightedRandomNumber(
+    int $rangeOneMax = 200,
+    int $rangeTwoMin = 201,
+    int $rangeTwoMax = 500,
+    int $rangeThreeMin = 501,
+    int $rangeThreeMax = 1000,
+    int $rangeFourMin = 1001,
+    int $rangeFourMax = 1500,
+    int $rangeFiveMin = 1501,
+    int $rangeFiveMax = 1900,
+    int $rangeSixMin = 1901,
+    int $rangeSixMax = 2000
+)
+{
+    $randomNumber = rand(1, 10000);
+    if ($randomNumber <= 9000) {
+        $min = 1;    $max = $rangeOneMax;
+    } elseif ($randomNumber <= 9500) {
+        $min = $rangeTwoMin;  $max = $rangeTwoMax;
+    } elseif ($randomNumber <= 9700) {
+        $min = $rangeThreeMin;  $max = $rangeThreeMax;
+    } elseif ($randomNumber <= 9800) {
+        $min = $rangeFourMin; $max = $rangeFourMax;
+    } elseif($randomNumber <= 9999) {
+        $min = $rangeFiveMin; $max = $rangeFiveMax;
+    } else {
+        $min = $rangeSixMin; $max = $rangeSixMax;
+    }
+
+    return rand($min,$max);
+}
+
 function getVisitorData(
     string $name,
     string $gender,

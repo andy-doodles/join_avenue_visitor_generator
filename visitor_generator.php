@@ -23,7 +23,7 @@ name, gender, country, subregion, greeting, farewell, shout, and sprite
 the generated data into it
 */
 
-for ($x = 1; $x <= 8; $x++) {
+for ($x = 1; $x <= 50; $x++) {
     # Get visitor gender and file name
     $visitorGender = generateVisitorGender();
     $newFileName = generateFileName($visitorGender, $faker);
@@ -69,10 +69,10 @@ for ($x = 1; $x <= 8; $x++) {
     $visitorMedals = rand(0, 255);
 
     /* Generate data about the number of Pokémon link trades the visitor has
-    participated in. Number is between 0 and 2^31 - 1
+    participated in. Number is between 1 and 2000
     This number will be converted to a signed integer (32-bit,
     little endian) during the process of writing it to the file */
-    $visitorLinkTrades = rand(0, 2000);
+    $visitorLinkTrades = getWeightedRandomNumber();
 
     /* All following variables will be converted to a signed integer
     (32-bit, little endian) during the process of writing them to the file */
