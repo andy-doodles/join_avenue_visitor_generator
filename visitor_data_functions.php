@@ -255,7 +255,8 @@ function getVisitorData(
     string $dateMet,
     int $visitorMedals,
     int $visitorLinkTrades,
-    int $visitorNicknamesGiven
+    int $visitorNicknamesGiven,
+    int $visitorCustomers
 ): array
 {
     $visitorArray = [
@@ -270,7 +271,8 @@ function getVisitorData(
         "Shout" => "$shout",
         "Number of medals" => $visitorMedals,
         "Number of link trades" => $visitorLinkTrades,
-        "Number of nicknames given" => $visitorNicknamesGiven
+        "Number of nicknames given" => $visitorNicknamesGiven,
+        "Number of customers the visitor has received in their own Avenue" => $visitorCustomers
     ];
     return $visitorArray;
 }

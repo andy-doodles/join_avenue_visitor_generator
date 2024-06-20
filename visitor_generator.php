@@ -78,6 +78,8 @@ for ($x = 1; $x <= 8; $x++) {
     (32-bit, little endian) during the process of writing them to the file */
     # Number of nicknames the visitors has given to caught Pokémon (1 - 1000)
     $visitorNicknamesGiven = getWeightedRandomNumber(100, 101, 250, 251, 500, 501, 750, 751, 950, 951, 1000);
+    # Number of customers in the visitor's own Join Avenue (1 - 1000)
+    $visitorCustomers = getWeightedRandomNumber(100, 101, 250, 251, 500, 501, 750, 751, 950, 951, 1000);
 
     /* With all the necessary data generated, the script now writes said
     data into an output file */
@@ -111,6 +113,7 @@ for ($x = 1; $x <= 8; $x++) {
     writeNumberOfMedalsToFile($outputVisitorFile, $visitorMedals);
     writeSignedIntegersToFile($outputVisitorFile, $visitorLinkTrades, 0x40);
     writeSignedIntegersToFile($outputVisitorFile, $visitorNicknamesGiven, 0x44);
+    writeSignedIntegersToFile($outputVisitorFile, $visitorCustomers, 0x48);
 
     # Output visitor data for verification and debugging
     echo "<pre>";
@@ -118,7 +121,7 @@ for ($x = 1; $x <= 8; $x++) {
         $spriteDescription, $countryName, $countryIndexDec, $countryIndexHex, $subRegionName,
         $subRegionIndexDec, $subRegionIndexHex, $unencodedGreeting, $unencodedFarewell,
         $unencodedShout, $formattedDateMet, $visitorMedals, $visitorLinkTrades,
-        $visitorNicknamesGiven));
+        $visitorNicknamesGiven, $visitorCustomers));
     echo "<pre>";
 
     # Close file
