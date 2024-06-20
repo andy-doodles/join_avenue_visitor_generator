@@ -23,7 +23,7 @@ name, gender, country, subregion, greeting, farewell, shout, and sprite
 the generated data into it
 */
 
-for ($x = 1; $x <= 50; $x++) {
+for ($x = 1; $x <= 8; $x++) {
     # Get visitor gender and file name
     $visitorGender = generateVisitorGender();
     $newFileName = generateFileName($visitorGender, $faker);
@@ -109,7 +109,7 @@ for ($x = 1; $x <= 50; $x++) {
     writeVisitorFarewellToFile($outputVisitorFile, $encodedFarewell);
     writeDateMetToFile($outputVisitorFile, $yearMet, $monthMet, $dayMet);
     writeNumberOfMedalsToFile($outputVisitorFile, $visitorMedals);
-    writeNumberOfLinkTradesToFile($outputVisitorFile, $visitorLinkTrades);
+    writeSignedIntegersToFile($outputVisitorFile, $visitorLinkTrades, 0x40);
     writeSignedIntegersToFile($outputVisitorFile, $visitorNicknamesGiven, 0x44);
 
     # Output visitor data for verification and debugging
