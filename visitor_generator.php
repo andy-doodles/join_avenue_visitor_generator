@@ -74,6 +74,11 @@ for ($x = 1; $x <= 8; $x++) {
     little endian) during the process of writing it to the file */
     $visitorLinkTrades = rand(0, 2000);
 
+    /* All following variables will be converted to a signed integer
+    (32-bit, little endian) during the process of writing them to the file */
+    # Number of nicknames the visitors has given to caught Pokémon
+    $visitorNicknamesGiven = rand(0, 1000);
+
     /* With all the necessary data generated, the script now writes said
     data into an output file */
     
@@ -105,13 +110,15 @@ for ($x = 1; $x <= 8; $x++) {
     writeDateMetToFile($outputVisitorFile, $yearMet, $monthMet, $dayMet);
     writeNumberOfMedalsToFile($outputVisitorFile, $visitorMedals);
     writeNumberOfLinkTradesToFile($outputVisitorFile, $visitorLinkTrades);
+    writeSignedIntegersToFile($outputVisitorFile, $visitorNicknamesGiven, 0x44);
 
     # Output visitor data for verification and debugging
     echo "<pre>";
     print_r(getVisitorData($newFileName, $visitorGender, $hexSpriteValue, $decSpriteValue,
         $spriteDescription, $countryName, $countryIndexDec, $countryIndexHex, $subRegionName,
         $subRegionIndexDec, $subRegionIndexHex, $unencodedGreeting, $unencodedFarewell,
-        $unencodedShout, $formattedDateMet, $visitorMedals, $visitorLinkTrades));
+        $unencodedShout, $formattedDateMet, $visitorMedals, $visitorLinkTrades,
+        $visitorNicknamesGiven));
     echo "<pre>";
 
     # Close file
