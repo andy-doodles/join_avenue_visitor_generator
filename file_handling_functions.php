@@ -148,4 +148,17 @@ function writeNumberOfLinkTradesToFile(
     writeDataToFile($file, 0x40, $signedVisitorLinkTrades);
 }
 
+/* Writes to fila any number that needs to be a signed integer in the binary file
+The provided integer is converted to a 32-bit, little endian signed integer
+*/
+function writeSignedIntegersToFile(
+    $file,
+    int $integer,
+    int $offset
+)
+{
+    $signedInteger = pack("l", $integer);
+    writeDataToFile($file, $offset, $signedInteger);
+}
+
 ?>
