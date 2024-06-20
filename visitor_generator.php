@@ -80,6 +80,9 @@ for ($x = 1; $x <= 8; $x++) {
     $visitorNicknamesGiven = getWeightedRandomNumber(100, 101, 250, 251, 500, 501, 750, 751, 950, 951, 1000);
     # Number of customers in the visitor's own Join Avenue (1 - 1000)
     $visitorCustomers = getWeightedRandomNumber(100, 101, 250, 251, 500, 501, 750, 751, 950, 951, 1000);
+    # Total money spent by the visitor
+    $visitorMoneySpent = getWeightedRandomNumber(2e5, 2e5 + 1, 5e5, 5e5 + 1, 7e5, 7e5 + 1, 1e6, 1e6 + 1, 2e6,
+                                                2e6 + 1, 1e7);
 
     /* With all the necessary data generated, the script now writes said
     data into an output file */
@@ -114,6 +117,7 @@ for ($x = 1; $x <= 8; $x++) {
     writeSignedIntegersToFile($outputVisitorFile, $visitorLinkTrades, 0x40);
     writeSignedIntegersToFile($outputVisitorFile, $visitorNicknamesGiven, 0x44);
     writeSignedIntegersToFile($outputVisitorFile, $visitorCustomers, 0x48);
+    writeSignedIntegersToFile($outputVisitorFile, $visitorMoneySpent, 0x4C);
 
     # Output visitor data for verification and debugging
     echo "<pre>";
@@ -121,7 +125,7 @@ for ($x = 1; $x <= 8; $x++) {
         $spriteDescription, $countryName, $countryIndexDec, $countryIndexHex, $subRegionName,
         $subRegionIndexDec, $subRegionIndexHex, $unencodedGreeting, $unencodedFarewell,
         $unencodedShout, $formattedDateMet, $visitorMedals, $visitorLinkTrades,
-        $visitorNicknamesGiven, $visitorCustomers));
+        $visitorNicknamesGiven, $visitorCustomers, $visitorMoneySpent));
     echo "<pre>";
 
     # Close file
