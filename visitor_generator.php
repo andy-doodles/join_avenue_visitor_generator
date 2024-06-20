@@ -76,8 +76,8 @@ for ($x = 1; $x <= 8; $x++) {
 
     /* All following variables will be converted to a signed integer
     (32-bit, little endian) during the process of writing them to the file */
-    # Number of nicknames the visitors has given to caught Pokémon
-    $visitorNicknamesGiven = rand(0, 1000);
+    # Number of nicknames the visitors has given to caught Pokémon (1 - 1000)
+    $visitorNicknamesGiven = getWeightedRandomNumber(100, 101, 250, 251, 500, 501, 750, 751, 950, 951, 1000);
 
     /* With all the necessary data generated, the script now writes said
     data into an output file */
