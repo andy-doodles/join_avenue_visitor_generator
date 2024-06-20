@@ -135,8 +135,9 @@ function writeNumberOfMedalsToFile(
     writeDataToFile($file, 0x39, $visitorMedals);
 }
 
-/* Writes to fila any number that needs to be a signed integer in the binary file
+/* Writes to file any number that needs to be a signed integer in the binary file
 The provided integer is converted to a 32-bit, little endian signed integer
+Function requires hexadecimal offset to specify where to write the data
 */
 function writeSignedIntegersToFile(
     $file,
