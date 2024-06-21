@@ -149,6 +149,19 @@ function writeSignedIntegersToFile(
     writeDataToFile($file, $offset, $signedInteger);
 }
 
+/* Write the visitor's recruitment rank (0 - 255)
+Offset is at 0x2C
+*/
+function writeRecruitmentRankToFile(
+    $file,
+    int $recruitmentRank,
+    int $offset
+)
+{
+    $recruitmentRank = chr($recruitmentRank);
+    writeDataToFile($file, $offset, $recruitmentRank);
+}
+
 /* Write the visitor's choice of shop
 Offset is at 0x2E
 */

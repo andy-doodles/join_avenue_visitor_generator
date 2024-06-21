@@ -57,6 +57,9 @@ for ($x = 1; $x <= 8; $x++) {
     $decSpriteValue = $spriteData[0];
     $spriteDescription = $spriteData[1];
 
+    # Generate the visitor's recruitment level
+    $visitorRecruitmentRank = getWeightedRandomNumber(20, 21, 25, 26, 35, 36, 50, 51, 200, 201, 255);
+    
     # Generate the visitor's shop choices (the shops they want to engage with)
     $visitorShopChoice = rand(0, 255);
 
@@ -121,6 +124,7 @@ for ($x = 1; $x <= 8; $x++) {
     and date met*/
     writeVisitorGenderToFile($outputVisitorFile, $visitorGender);
     writeVisitorSpriteToFile($outputVisitorFile, hexdec($hexSpriteValue));
+    writeRecruitmentRankToFile($outputVisitorFile, $visitorRecruitmentRank, 0x2C);
     writeShopChoiceToFile($outputVisitorFile, $visitorShopChoice, 0x2E);
     writeVisitorCountryToFile($outputVisitorFile, $countryIndexDec, $subRegionIndexDec);
     writeVisitorNameToFile($newFileName, $outputVisitorFile, $stringTerminator, $nullCharacter);
@@ -142,9 +146,9 @@ for ($x = 1; $x <= 8; $x++) {
     # Output visitor data for verification and debugging
     echo "<pre>";
     print_r(getVisitorData($newFileName, $visitorGender, $hexSpriteValue, $decSpriteValue,
-        $spriteDescription, $visitorShopChoice, $countryName, $countryIndexDec, $countryIndexHex,
-        $subRegionName, $subRegionIndexDec, $subRegionIndexHex, $unencodedGreeting, $unencodedFarewell,
-        $unencodedShout, $formattedDateMet, $visitorMedals, $visitorLinkTrades,
+        $spriteDescription, $visitorRecruitmentRank, $visitorShopChoice, $countryName, $countryIndexDec,
+        $countryIndexHex, $subRegionName, $subRegionIndexDec, $subRegionIndexHex, $unencodedGreeting,
+        $unencodedFarewell, $unencodedShout, $formattedDateMet, $visitorMedals, $visitorLinkTrades,
         $visitorNicknamesGiven, $visitorCustomers, $visitorMoneySpent, $visitorPassersbyMet,
         $visitorLinkBattles, $visitorPokemonCaught, $visitorPokemonEggsHatched, $visitorJoinAvenueRank));
     echo "<pre>";
