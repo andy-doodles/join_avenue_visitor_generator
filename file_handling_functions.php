@@ -162,4 +162,17 @@ function writeShopChoiceToFile(
     writeDataToFile($file, $offset, $shopChoice);
 }
 
+/* Write the visitor's Join Avenue rank in their own Join Avenue
+Offset is at 0xAB
+*/
+function writeJoinAvenueRank(
+    $file,
+    int $visitorJoinAvenueRank,
+    int $offset
+)
+{
+    $visitorJoinAvenueRank = chr($visitorJoinAvenueRank);
+    writeDataToFile($file, $offset, $visitorJoinAvenueRank);
+}
+
 ?>

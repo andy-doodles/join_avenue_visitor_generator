@@ -262,7 +262,8 @@ function getVisitorData(
     int $visitorPassersbyMet,
     int $visitorLinkBattles,
     int $visitorPokemonCaught,
-    int $visitorPokemonEggsHatched
+    int $visitorPokemonEggsHatched,
+    int $visitorJoinAvenueRank
 ): array
 {
     $visitorArray = [
@@ -284,7 +285,8 @@ function getVisitorData(
         "Passersby met by the visitor" => $visitorPassersbyMet,
         "Link Battles the visitor has participated in" => $visitorLinkBattles,
         "Pokémon the visitor has caught" => $visitorPokemonCaught,
-        "Pokémon Eggs the visitor has hatched" => $visitorPokemonEggsHatched
+        "Pokémon Eggs the visitor has hatched" => $visitorPokemonEggsHatched,
+        "Join Avenue rank in their own Avenue" => $visitorJoinAvenueRank
     ];
     return $visitorArray;
 }

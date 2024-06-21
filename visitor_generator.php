@@ -95,6 +95,9 @@ for ($x = 1; $x <= 8; $x++) {
     # Number of Pokémon eggs the visitor has hatched
     $visitorPokemonEggsHatched = getWeightedRandomNumber(100, 101, 250, 251, 500, 501, 750, 751, 950, 951, 1000);
 
+    # Visitor's Join Avenue rank (in their own Join Avenue, not in one of your shops)
+    $visitorJoinAvenueRank = getWeightedRandomNumber(20, 21, 25, 26, 35, 36, 50, 51, 200, 201, 255);
+
     /* With all the necessary data generated, the script now writes said
     data into an output file */
     
@@ -134,6 +137,7 @@ for ($x = 1; $x <= 8; $x++) {
     writeSignedIntegersToFile($outputVisitorFile, $visitorLinkBattles, 0x54);
     writeSignedIntegersToFile($outputVisitorFile, $visitorPokemonCaught, 0x58);
     writeSignedIntegersToFile($outputVisitorFile, $visitorPokemonEggsHatched, 0x5C);
+    writeJoinAvenueRank($outputVisitorFile, $visitorJoinAvenueRank, 0xAB);
 
     # Output visitor data for verification and debugging
     echo "<pre>";
@@ -142,7 +146,7 @@ for ($x = 1; $x <= 8; $x++) {
         $subRegionName, $subRegionIndexDec, $subRegionIndexHex, $unencodedGreeting, $unencodedFarewell,
         $unencodedShout, $formattedDateMet, $visitorMedals, $visitorLinkTrades,
         $visitorNicknamesGiven, $visitorCustomers, $visitorMoneySpent, $visitorPassersbyMet,
-        $visitorLinkBattles, $visitorPokemonCaught, $visitorPokemonEggsHatched));
+        $visitorLinkBattles, $visitorPokemonCaught, $visitorPokemonEggsHatched, $visitorJoinAvenueRank));
     echo "<pre>";
 
     # Close file
