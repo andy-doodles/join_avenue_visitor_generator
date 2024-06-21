@@ -149,4 +149,17 @@ function writeSignedIntegersToFile(
     writeDataToFile($file, $offset, $signedInteger);
 }
 
+/* Write the visitor's choice of shop
+Offset is at 0x2E
+*/
+function writeShopChoiceToFile(
+    $file,
+    int $shopChoice,
+    int $offset
+)
+{
+    $shopChoice = chr($shopChoice);
+    writeDataToFile($file, $offset, $shopChoice);
+}
+
 ?>

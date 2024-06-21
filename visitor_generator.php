@@ -57,6 +57,9 @@ for ($x = 1; $x <= 8; $x++) {
     $decSpriteValue = $spriteData[0];
     $spriteDescription = $spriteData[1];
 
+    # Generate the visitor's shop choices (the shops they want to engage with)
+    $visitorShopChoice = rand(0, 255);
+
     /* Generate data about the day, month, and year the player met the visitor 
     Each piece of data corresponds to one byte in the binary file */
     $dateMet = $faker->dateTimeBetween("-12 years");
@@ -115,6 +118,7 @@ for ($x = 1; $x <= 8; $x++) {
     and date met*/
     writeVisitorGenderToFile($outputVisitorFile, $visitorGender);
     writeVisitorSpriteToFile($outputVisitorFile, hexdec($hexSpriteValue));
+    writeShopChoiceToFile($outputVisitorFile, $visitorShopChoice, 0x2E);
     writeVisitorCountryToFile($outputVisitorFile, $countryIndexDec, $subRegionIndexDec);
     writeVisitorNameToFile($newFileName, $outputVisitorFile, $stringTerminator, $nullCharacter);
     writeVisitorShoutToFile($outputVisitorFile, $encodedShout);
@@ -134,8 +138,8 @@ for ($x = 1; $x <= 8; $x++) {
     # Output visitor data for verification and debugging
     echo "<pre>";
     print_r(getVisitorData($newFileName, $visitorGender, $hexSpriteValue, $decSpriteValue,
-        $spriteDescription, $countryName, $countryIndexDec, $countryIndexHex, $subRegionName,
-        $subRegionIndexDec, $subRegionIndexHex, $unencodedGreeting, $unencodedFarewell,
+        $spriteDescription, $visitorShopChoice, $countryName, $countryIndexDec, $countryIndexHex,
+        $subRegionName, $subRegionIndexDec, $subRegionIndexHex, $unencodedGreeting, $unencodedFarewell,
         $unencodedShout, $formattedDateMet, $visitorMedals, $visitorLinkTrades,
         $visitorNicknamesGiven, $visitorCustomers, $visitorMoneySpent, $visitorPassersbyMet,
         $visitorLinkBattles, $visitorPokemonCaught, $visitorPokemonEggsHatched));
