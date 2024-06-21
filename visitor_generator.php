@@ -83,6 +83,14 @@ for ($x = 1; $x <= 8; $x++) {
     # Total money spent by the visitor
     $visitorMoneySpent = getWeightedRandomNumber(2e5, 2e5 + 1, 5e5, 5e5 + 1, 7e5, 7e5 + 1, 1e6, 1e6 + 1, 2e6,
                                                 2e6 + 1, 1e7);
+    # Number of passersby met by the visitor
+    $visitorPassersbyMet = getWeightedRandomNumber();
+    # Number of Link Battles the visitor has participated in
+    $visitorLinkBattles = getWeightedRandomNumber(100, 101, 250, 251, 500, 501, 750, 751, 950, 951, 1000);
+    # Number of Pokémon the visitor has caught
+    $visitorPokemonCaught = getWeightedRandomNumber(600, 601, 700, 701, 800, 801, 900, 901, 1500, 1501, 3000);
+    # Number of Pokémon eggs the visitor has hatched
+    $visitorPokemonEggsHatched = getWeightedRandomNumber(100, 101, 250, 251, 500, 501, 750, 751, 950, 951, 1000);
 
     /* With all the necessary data generated, the script now writes said
     data into an output file */
@@ -118,6 +126,10 @@ for ($x = 1; $x <= 8; $x++) {
     writeSignedIntegersToFile($outputVisitorFile, $visitorNicknamesGiven, 0x44);
     writeSignedIntegersToFile($outputVisitorFile, $visitorCustomers, 0x48);
     writeSignedIntegersToFile($outputVisitorFile, $visitorMoneySpent, 0x4C);
+    writeSignedIntegersToFile($outputVisitorFile, $visitorPassersbyMet, 0x50);
+    writeSignedIntegersToFile($outputVisitorFile, $visitorLinkBattles, 0x54);
+    writeSignedIntegersToFile($outputVisitorFile, $visitorPokemonCaught, 0x58);
+    writeSignedIntegersToFile($outputVisitorFile, $visitorPokemonEggsHatched, 0x5C);
 
     # Output visitor data for verification and debugging
     echo "<pre>";
@@ -125,7 +137,8 @@ for ($x = 1; $x <= 8; $x++) {
         $spriteDescription, $countryName, $countryIndexDec, $countryIndexHex, $subRegionName,
         $subRegionIndexDec, $subRegionIndexHex, $unencodedGreeting, $unencodedFarewell,
         $unencodedShout, $formattedDateMet, $visitorMedals, $visitorLinkTrades,
-        $visitorNicknamesGiven, $visitorCustomers, $visitorMoneySpent));
+        $visitorNicknamesGiven, $visitorCustomers, $visitorMoneySpent, $visitorPassersbyMet,
+        $visitorLinkBattles, $visitorPokemonCaught, $visitorPokemonEggsHatched));
     echo "<pre>";
 
     # Close file
