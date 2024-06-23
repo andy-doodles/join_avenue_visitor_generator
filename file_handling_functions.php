@@ -47,8 +47,7 @@ function writeVisitorNameToFile($newFileName, $file, $terminator, $nullCharacter
     writeDataToFile($file, 0x00, $encodedVisitorName);
 }
 
-/* Encode visitor gender created with generateVisitorGender()
-Inject encoded visitor name to file
+/* Inject visitor gender to file
 Gender byte is at offset 0x22
 A value of 0x00 is "man", 0x10 is "woman" */
 function writeVisitorGenderToFile(
@@ -57,11 +56,12 @@ function writeVisitorGenderToFile(
 )
 {
     if ($gender == "man or boy") {
-        $gender = pack("v", 0x00);
+        $gender = 0x00;
     }
     else {
-        $gender = pack("v", 0x10);
+        $gender = 0x10;
     }
+    
     writeDataToFile($file, 0x22, $gender);
 }
 
