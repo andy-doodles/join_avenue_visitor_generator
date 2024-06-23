@@ -39,12 +39,23 @@ function generateFileName(
     return $fileName;
 }
 
-# Inject encoded visitor name to file
-function writeVisitorNameToFile($newFileName, $file, $terminator, $nullCharacter) {
+/* 
+Encode visitor name to 16-bit, Little Endian
+Inject encoded visitor name to file
+Visitor offset is at 0x00
+*/
+function writeVisitorNameToFile(
+    $file,
+    int $nameOffset,
+    string $newFileName,
+    string $terminator,
+    string $nullCharacter
+)
+{
     $nameLength = strlen($newFileName);
     $encodedVisitorName = encodeStringAddFiller($newFileName, $nameLength,
         $terminator, $nullCharacter, false, true);
-    writeDataToFile($file, 0x00, $encodedVisitorName);
+    writeDataToFile($file, $nameOffset, $encodedVisitorName);
 }
 
 /* Inject visitor gender to file
