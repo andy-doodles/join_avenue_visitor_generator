@@ -156,8 +156,8 @@ Offset is at 0x2C
 */
 function writeRecruitmentRankToFile(
     $file,
-    int $recruitmentRank,
-    int $offset
+    int $offset,
+    int $recruitmentRank
 )
 {
     $recruitmentRank = chr($recruitmentRank);
