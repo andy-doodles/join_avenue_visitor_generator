@@ -80,14 +80,15 @@ function writeVisitorSpriteToFile(
 }
 
 /*
+Write the visitor's country and subregion to file
 Visitor country at offset 0x0E
 Visitor subregion at offset 0x0F
 */
-function writeVisitorCountryToFile($file, $country, $subRegion) {
+function writeVisitorCountryToFile($file, $countryOffset, $subRegionOffset, $country, $subRegion) {
     $country = chr($country);
     $subRegion = chr($subRegion);
-    writeDataToFile($file, 0x0E, $country);
-    writeDataToFile($file, 0x0F, $subRegion);
+    writeDataToFile($file, $countryOffset, $country);
+    writeDataToFile($file, $subRegionOffset, $subRegion);
 }
 
 # Visitor shout is at offset 0x10

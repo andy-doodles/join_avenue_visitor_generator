@@ -128,7 +128,7 @@ for ($x = 1; $x <= 8; $x++) {
     writeVisitorSpriteToFile($outputVisitorFile, 0x2A, hexdec($hexSpriteValue));
     writeRecruitmentRankToFile($outputVisitorFile, 0x2C, $visitorRecruitmentRank);
     writeShopChoiceToFile($outputVisitorFile, 0x2E, $visitorShopChoice);
-    writeVisitorCountryToFile($outputVisitorFile, $countryIndexDec, $subRegionIndexDec);
+    writeVisitorCountryToFile($outputVisitorFile, 0x0E, 0x0F, $countryIndexDec, $subRegionIndexDec);
     writeVisitorNameToFile($newFileName, $outputVisitorFile, $stringTerminator, $nullCharacter);
     writeVisitorShoutToFile($outputVisitorFile, $encodedShout);
     writeVisitorGreetingToFile($outputVisitorFile, $encodedGreeting);
