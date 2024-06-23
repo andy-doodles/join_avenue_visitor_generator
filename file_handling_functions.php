@@ -169,8 +169,8 @@ Offset is at 0x2E
 */
 function writeShopChoiceToFile(
     $file,
-    int $shopChoice,
-    int $offset
+    int $offset,
+    int $shopChoice
 )
 {
     $shopChoice = chr($shopChoice);
