@@ -187,5 +187,3 @@ function writeJoinAvenueRank(
     $visitorJoinAvenueRank = chr($visitorJoinAvenueRank);
     writeDataToFile($file, $offset, $visitorJoinAvenueRank);
 }
-
-?>

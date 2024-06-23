@@ -161,5 +161,3 @@ for ($x = 1; $x <= 8; $x++) {
 }
 
 # http://localhost/join_avenue_visitor_generator/visitor_generator.php
-
-?>

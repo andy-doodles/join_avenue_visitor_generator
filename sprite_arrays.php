@@ -144,6 +144,4 @@ $femaleSprites = [
     "Sprite #251" => [0xFB, "Mom"],
     "Sprite #253" => [0xFD, "Kanto leader Misty"],
     "Sprite #255" => [0xFF, "Kanto leader Erika"]
-]
-
-?>
+];

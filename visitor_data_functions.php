@@ -295,5 +295,3 @@ function getVisitorData(
     ];
     return $visitorArray;
 }
-
-?>
