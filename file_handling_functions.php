@@ -52,6 +52,7 @@ Gender byte is at offset 0x22
 A value of 0x00 is "man", 0x10 is "woman" */
 function writeVisitorGenderToFile(
     $file,
+    int $offset,
     string $gender
 )
 {
@@ -62,7 +63,7 @@ function writeVisitorGenderToFile(
         $gender = 0x10;
     }
     
-    writeDataToFile($file, 0x22, $gender);
+    writeDataToFile($file, $offset, $gender);
 }
 
 /* Inject the value sprite into the file

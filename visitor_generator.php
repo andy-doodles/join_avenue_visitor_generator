@@ -124,7 +124,7 @@ for ($x = 1; $x <= 8; $x++) {
     /* Inject all remaining generated data into the file:
     Gender, sprite, country and subregion, visitor name, shout, greeting, farewell
     and date met*/
-    writeVisitorGenderToFile($outputVisitorFile, $visitorGender);
+    writeVisitorGenderToFile($outputVisitorFile, 0x22, $visitorGender);
     writeVisitorSpriteToFile($outputVisitorFile, hexdec($hexSpriteValue));
     writeRecruitmentRankToFile($outputVisitorFile, $visitorRecruitmentRank, 0x2C);
     writeShopChoiceToFile($outputVisitorFile, $visitorShopChoice, 0x2E);
