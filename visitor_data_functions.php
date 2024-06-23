@@ -74,8 +74,11 @@ function encodeStringAddFiller (
     }
 }
 
-function generateVisitorGender() {
-    $genderArray = ["man", "woman"];
+# Randomly choose the visitor's gender: man/boy or woman/girl
+function generateVisitorGender(
+    array $genderArray
+): string
+{
     shuffle($genderArray);
 
     if ($genderArray[0] == "man") {
