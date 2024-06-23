@@ -71,11 +71,12 @@ Sprite offset is at 0x2A
 */
 function writeVisitorSpriteToFile(
     $file,
+    int $offset,
     int $hexSpriteValue
 )
 {
     $hexSpriteValue = chr($hexSpriteValue);
-    writeDataToFile($file, 0x2A, $hexSpriteValue);
+    writeDataToFile($file, $offset, $hexSpriteValue);
 }
 
 /*
