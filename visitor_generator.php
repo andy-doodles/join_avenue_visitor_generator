@@ -24,9 +24,10 @@ the generated data into it
 */
 
 for ($x = 1; $x <= 8; $x++) {
-    # Get visitor gender and file name
+    # Get visitor gender
     $genderArray = ["man", "woman"];
     $visitorGender = generateVisitorGender($genderArray);
+    # Generate file name based on gender
     $newFileName = generateFileName($visitorGender, $faker);
 
     # Create and destructure country info
