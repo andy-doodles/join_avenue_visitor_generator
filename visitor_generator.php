@@ -130,9 +130,10 @@ for ($x = 1; $x <= 8; $x++) {
     writeShopChoiceToFile($outputVisitorFile, 0x2E, $visitorShopChoice);
     writeVisitorCountryToFile($outputVisitorFile, 0x0E, 0x0F, $countryIndexDec, $subRegionIndexDec);
     writeVisitorNameToFile($outputVisitorFile, 0x00, $newFileName, $stringTerminator, $nullCharacter);
-    writeVisitorShoutToFile($outputVisitorFile, $encodedShout);
-    writeVisitorGreetingToFile($outputVisitorFile, $encodedGreeting);
-    writeVisitorFarewellToFile($outputVisitorFile, $encodedFarewell);
+    # Inject all dialogues
+    writeDataToFile($outputVisitorFile, 0x10, $encodedShout);
+    writeDataToFile($outputVisitorFile, 0x80, $encodedGreeting);
+    writeDataToFile($outputVisitorFile, 0x90, $encodedFarewell);
     # Make every visitor a human player
     writeDataToFile($outputVisitorFile, 0xA0, chr(1));
     writeDateMetToFile($outputVisitorFile, $yearMet, $monthMet, $dayMet);

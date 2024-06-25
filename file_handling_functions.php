@@ -109,21 +109,6 @@ function writeVisitorCountryToFile(
     writeDataToFile($file, $subRegionOffset, $subRegion);
 }
 
-# Visitor shout is at offset 0x10
-function writeVisitorShoutToFile($file, $greeting) {
-    writeDataToFile($file, 0x10, $greeting);
-}
-
-# Visitor greeting is at offset 0x80
-function writeVisitorGreetingToFile($file, $greeting) {
-    writeDataToFile($file, 0x80, $greeting);
-}
-
-# Visitor farewell is at offset 0x90
-function writeVisitorFarewellToFile($file, $greeting) {
-    writeDataToFile($file, 0x90, $greeting);
-}
-
 /* Writes data about the day, month, and year the player met the visitor 
 Year met is at offset 0xA3
 Month met is at offset 0xA4
