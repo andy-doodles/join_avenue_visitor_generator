@@ -151,8 +151,8 @@ Function requires hexadecimal offset to specify where to write the data
 */
 function writeSignedIntegersToFile(
     $file,
-    int $integer,
-    int $offset
+    int $offset,
+    int $integer
 )
 {
     $signedInteger = pack("l", $integer);

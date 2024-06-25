@@ -138,14 +138,14 @@ for ($x = 1; $x <= 8; $x++) {
     writeDataToFile($outputVisitorFile, 0xA0, 0x01);
     writeDateMetToFile($outputVisitorFile, 0xA3, $yearMet, 0xA4, $monthMet, 0xA5, $dayMet);
     writeNumberOfMedalsToFile($outputVisitorFile, 0x39, $visitorMedals);
-    writeSignedIntegersToFile($outputVisitorFile, $visitorLinkTrades, 0x40);
-    writeSignedIntegersToFile($outputVisitorFile, $visitorNicknamesGiven, 0x44);
-    writeSignedIntegersToFile($outputVisitorFile, $visitorCustomers, 0x48);
-    writeSignedIntegersToFile($outputVisitorFile, $visitorMoneySpent, 0x4C);
-    writeSignedIntegersToFile($outputVisitorFile, $visitorPassersbyMet, 0x50);
-    writeSignedIntegersToFile($outputVisitorFile, $visitorLinkBattles, 0x54);
-    writeSignedIntegersToFile($outputVisitorFile, $visitorPokemonCaught, 0x58);
-    writeSignedIntegersToFile($outputVisitorFile, $visitorPokemonEggsHatched, 0x5C);
+    writeSignedIntegersToFile($outputVisitorFile, 0x40, $visitorLinkTrades);
+    writeSignedIntegersToFile($outputVisitorFile, 0x44, $visitorNicknamesGiven);
+    writeSignedIntegersToFile($outputVisitorFile, 0x48, $visitorCustomers);
+    writeSignedIntegersToFile($outputVisitorFile, 0x4C, $visitorMoneySpent);
+    writeSignedIntegersToFile($outputVisitorFile, 0x50, $visitorPassersbyMet);
+    writeSignedIntegersToFile($outputVisitorFile, 0x54, $visitorLinkBattles);
+    writeSignedIntegersToFile($outputVisitorFile, 0x58, $visitorPokemonCaught);
+    writeSignedIntegersToFile($outputVisitorFile, 0x5C, $visitorPokemonEggsHatched);
     writeJoinAvenueRank($outputVisitorFile, $visitorJoinAvenueRank, 0xAB);
 
     # Output visitor data for verification and debugging
