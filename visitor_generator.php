@@ -135,7 +135,7 @@ for ($x = 1; $x <= 8; $x++) {
     writeDataToFile($outputVisitorFile, 0x80, $encodedGreeting);
     writeDataToFile($outputVisitorFile, 0x90, $encodedFarewell);
     # Make every visitor a human player
-    writeDataToFile($outputVisitorFile, 0xA0, chr(1));
+    writeDataToFile($outputVisitorFile, 0xA0, 0x01);
     writeDateMetToFile($outputVisitorFile, 0xA3, $yearMet, 0xA4, $monthMet, 0xA5, $dayMet);
     writeNumberOfMedalsToFile($outputVisitorFile, $visitorMedals);
     writeSignedIntegersToFile($outputVisitorFile, $visitorLinkTrades, 0x40);
