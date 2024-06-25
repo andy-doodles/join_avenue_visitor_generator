@@ -116,17 +116,20 @@ Day met is at offset 0xA5
 */
 function writeDateMetToFile(
     $file,
+    int $yearOffset,
     int $yearMet,
+    int $monthOffset,
     int $monthMet,
+    int $dayOffset,
     int $dayMet
 )
 {
     $yearMet = chr($yearMet);
     $monthMet = chr($monthMet);
     $dayMet = chr($dayMet);
-    writeDataToFile($file, 0xA3, $yearMet);
-    writeDataToFile($file, 0xA4, $monthMet);
-    writeDataToFile($file, 0xA5, $dayMet);
+    writeDataToFile($file, $yearOffset, $yearMet);
+    writeDataToFile($file, $monthOffset, $monthMet);
+    writeDataToFile($file, $dayOffset, $dayMet);
 }
 
 /* Writes the number of medals the visitor has
