@@ -137,11 +137,12 @@ Number of medals is at offset 0x39
 */
 function writeNumberOfMedalsToFile(
     $file,
+    int $medalsOffset,
     int $visitorMedals
 )
 {
     $visitorMedals = chr($visitorMedals);
-    writeDataToFile($file, 0x39, $visitorMedals);
+    writeDataToFile($file, $medalsOffset, $visitorMedals);
 }
 
 /* Writes to file any number that needs to be a signed integer in the binary file
