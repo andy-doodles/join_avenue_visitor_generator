@@ -190,8 +190,8 @@ Offset is at 0xAB
 */
 function writeJoinAvenueRank(
     $file,
-    int $visitorJoinAvenueRank,
-    int $offset
+    int $offset,
+    int $visitorJoinAvenueRank
 )
 {
     $visitorJoinAvenueRank = chr($visitorJoinAvenueRank);

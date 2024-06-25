@@ -146,7 +146,7 @@ for ($x = 1; $x <= 8; $x++) {
     writeSignedIntegersToFile($outputVisitorFile, 0x54, $visitorLinkBattles);
     writeSignedIntegersToFile($outputVisitorFile, 0x58, $visitorPokemonCaught);
     writeSignedIntegersToFile($outputVisitorFile, 0x5C, $visitorPokemonEggsHatched);
-    writeJoinAvenueRank($outputVisitorFile, $visitorJoinAvenueRank, 0xAB);
+    writeJoinAvenueRank($outputVisitorFile, 0xAB, $visitorJoinAvenueRank);
 
     # Output visitor data for verification and debugging
     echo "<pre>";
